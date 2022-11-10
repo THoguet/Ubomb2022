@@ -57,8 +57,20 @@ public class Player extends GameObject implements Movable, TakeVisitor {
     }
 
     public final boolean canMove(Direction direction) {
-        // Need to be updated ;-)
-        return true;
+        boolean canMove;
+        switch(direction){
+            case UP ->
+                    canMove = game.player().getPosition().x() != 0;
+            case DOWN ->
+                    canMove = game.player().getPosition().x() != game.grid().height() - 1;
+            case LEFT ->
+                    canMove = game.player().getPosition().y() != 0;
+            case RIGHT ->
+                    canMove = game.player().getPosition().y() != game.grid().width() - 1;
+            default ->
+                    throw new RuntimeException("direction in the 4th dimension");
+        }
+        return canMove;
     }
 
     public void update(long now) {

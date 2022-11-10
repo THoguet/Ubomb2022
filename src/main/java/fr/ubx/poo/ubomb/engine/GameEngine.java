@@ -99,6 +99,14 @@ public final class GameEngine {
                 cleanupSprites();
                 render();
                 statusBar.update(game);
+
+                // End Game
+                if (player.getLives() <= 0){
+                    showMessage("YOU DIED", Color.DARKRED);
+                } else if(player.getPosition().x() == -1/*.equals(princess.getPosition()) //TODO */){
+                    showMessage("YOU RESCUED THE PRINCESS", Color.GOLD);
+                }
+
             }
         };
     }

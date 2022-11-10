@@ -2,7 +2,6 @@ package fr.ubx.poo.ubomb.view;
 
 import javafx.scene.image.Image;
 
-
 public enum ImageResource {
     // Only for the editor
     GROUND("ground.png"),
@@ -58,15 +57,11 @@ public enum ImageResource {
     DIGIT_8("banner_8.jpg"),
     DIGIT_9("banner_9.jpg"),
 
-
-
-
     // For the editor
     DOOR_OPENED_MINUS("door_opened_minus.png"),
     DOOR_OPENED_PLUS("door_opened_plus.png"),
     DOOR_CLOSED_MINUS("door_closed_minus.png"),
     DOOR_CLOSED_PLUS("door_closed_plus.png");
-
 
     private final Image image;
 
@@ -76,10 +71,11 @@ public enum ImageResource {
         try {
             this.image = new Image(ImageResource.class.getResourceAsStream("/images/" + file));
             if (image.getWidth() != size && image.getHeight() != size) {
-                String msg = "File " + file + " does not have the correct size " + image.getWidth() + " x " + image.getHeight();
-                throw new RuntimeException (msg);
+                String msg = "File " + file + " does not have the correct size " + image.getWidth() + " x "
+                        + image.getHeight();
+                throw new RuntimeException(msg);
             }
-        } catch (NullPointerException  e) {
+        } catch (NullPointerException e) {
             System.err.println("Resource not found : " + file);
             throw e;
         }
@@ -90,4 +86,3 @@ public enum ImageResource {
     }
 
 }
-

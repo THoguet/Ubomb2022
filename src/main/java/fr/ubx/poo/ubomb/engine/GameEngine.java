@@ -32,7 +32,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-
 public final class GameEngine {
 
     private static AnimationTimer gameLoop;
@@ -163,7 +162,6 @@ public final class GameEngine {
             }
         }.start();
     }
-
 
     private void update(long now) {
         player.update(now);

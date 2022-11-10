@@ -25,7 +25,6 @@ public class Player extends GameObject implements Movable, TakeVisitor {
         this.lives = game.configuration().playerLives();
     }
 
-
     @Override
     public void take(Key key) {
         System.out.println("Take the key ...");
@@ -36,11 +35,10 @@ public class Player extends GameObject implements Movable, TakeVisitor {
         Position nextPos = direction.nextPosition(getPosition());
         GameObject next = game.grid().get(nextPos);
         if (next instanceof Bonus bonus) {
-                bonus.takenBy(this);
+            bonus.takenBy(this);
         }
         setPosition(nextPos);
     }
-
 
     public int getLives() {
         return lives;

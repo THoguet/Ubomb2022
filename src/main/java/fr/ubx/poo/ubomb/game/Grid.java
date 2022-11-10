@@ -1,12 +1,12 @@
 package fr.ubx.poo.ubomb.game;
 
-
 import fr.ubx.poo.ubomb.go.decor.Decor;
 
 import java.util.*;
 
 public interface Grid {
     int width();
+
     int height();
 
     Decor get(Position position);
@@ -14,7 +14,6 @@ public interface Grid {
     void remove(Position position);
 
     Collection<Decor> values();
-
 
     boolean inside(Position nextPos);
 

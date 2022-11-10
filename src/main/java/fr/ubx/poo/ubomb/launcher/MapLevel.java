@@ -15,7 +15,8 @@ public class MapLevel {
     }
 
     public int width() {
-        return width;    }
+        return width;
+    }
 
     public int height() {
         return height;

@@ -21,7 +21,8 @@ public final class Input {
      */
     private final BitSet keyboardBitSet = new BitSet();
     /**
-     * "Key Pressed" handler for all input events: register pressed key in the bitset
+     * "Key Pressed" handler for all input events: register pressed key in the
+     * bitset
      */
     private final EventHandler<KeyEvent> keyPressedEventHandler = event -> {
 
@@ -29,7 +30,8 @@ public final class Input {
         keyboardBitSet.set(event.getCode().ordinal(), true);
     };
     /**
-     * "Key Released" handler for all input events: unregister released key in the bitset
+     * "Key Released" handler for all input events: unregister released key in the
+     * bitset
      */
     private final EventHandler<KeyEvent> keyReleasedEventHandler = event -> {
 

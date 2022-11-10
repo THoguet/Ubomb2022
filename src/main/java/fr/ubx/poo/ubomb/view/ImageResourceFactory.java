@@ -5,7 +5,8 @@ import javafx.scene.image.Image;
 
 public class ImageResourceFactory {
     public static ImageResource digit(int i) {
-        if (i < 0 || i > 9) throw new IllegalArgumentException("Digit must be in [0-9]");
+        if (i < 0 || i > 9)
+            throw new IllegalArgumentException("Digit must be in [0-9]");
         return ImageResource.valueOf("DIGIT_" + i);
     }
 
@@ -20,7 +21,7 @@ public class ImageResourceFactory {
     public static ImageResource getBomb(int i) {
         if (i < 0 || i > 3)
             throw new IllegalArgumentException();
-        return ImageResource.valueOf("BOMB_"+i);
+        return ImageResource.valueOf("BOMB_" + i);
     }
 
 }

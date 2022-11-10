@@ -27,7 +27,6 @@ public class StatusBar {
     private final Text keys = new Text();
     private final HBox level = new HBox();
 
-
     public StatusBar(Group root, int sceneWidth, int sceneHeight, Game game) {
         // Status bar
         this.game = game;
@@ -39,7 +38,6 @@ public class StatusBar {
         ds.setOffsetX(3.0);
         ds.setOffsetY(3.0);
         ds.setColor(Color.color(0.5f, 0.5f, 0.5f));
-
 
         HBox status = new HBox();
         status.getStyleClass().add("status");

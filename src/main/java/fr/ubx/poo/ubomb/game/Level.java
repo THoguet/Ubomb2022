@@ -15,7 +15,6 @@ public class Level implements Grid {
 
     private final MapLevel entities;
 
-
     private final Map<Position, Decor> elements = new HashMap<>();
 
     public Level(MapLevel entities) {
@@ -37,7 +36,8 @@ public class Level implements Grid {
                     case Key:
                         elements.put(position, new Key(position));
                         break;
-                    case Empty: break;
+                    case Empty:
+                        break;
                     default:
                         throw new RuntimeException("EntityCode " + entity.name() + " not processed");
                 }
@@ -67,7 +67,6 @@ public class Level implements Grid {
         return elements.values();
     }
 
-
     @Override
     public boolean inside(Position position) {
         return true;
@@ -80,6 +79,5 @@ public class Level implements Grid {
         if (decor != null)
             elements.put(position, decor);
     }
-
 
 }

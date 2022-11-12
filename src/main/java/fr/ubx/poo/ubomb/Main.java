@@ -11,7 +11,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         GameLauncherView launcher = new GameLauncherView(stage);
         Scene scene = new Scene(launcher);
-        stage.setTitle("UBomb 2022 Student");
+        stage.setTitle("UBomb Thibault - TO -- 2022");
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();

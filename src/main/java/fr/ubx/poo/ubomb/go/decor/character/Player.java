@@ -2,7 +2,7 @@
  * Copyright (c) 2020. Laurent Réveillère
  */
 
-package fr.ubx.poo.ubomb.go.character;
+package fr.ubx.poo.ubomb.go.decor.character;
 
 import fr.ubx.poo.ubomb.engine.Timer;
 import fr.ubx.poo.ubomb.game.Direction;
@@ -11,17 +11,20 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.Movable;
 import fr.ubx.poo.ubomb.go.TakeVisitor;
+import fr.ubx.poo.ubomb.go.Takeable;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
 
-public class Player extends GameObject implements Movable, TakeVisitor {
+public class Player extends Character implements TakeVisitor {
+    private int lives;
+    private boolean takenPrincess = false;
 
-    private Direction direction;
-    private boolean moveRequested = false;
-    private final int lives;
+    public Player(Position position) {
+        super(position);
+        this.lives = game.configuration().playerLives();
+    }
 
     public Player(Game game, Position position) {
         super(game, position);
-        this.direction = Direction.DOWN;
         this.lives = game.configuration().playerLives();
     }
 
@@ -30,12 +33,23 @@ public class Player extends GameObject implements Movable, TakeVisitor {
         System.out.println("Take the key ...");
     }
 
+    @Override
+    public void take(Monster m) {
+        this.lives--;
+    }
+
+    @Override
+    public void take(Princess p) {
+        this.takenPrincess = true;
+    }
+
+    @Override
     public void doMove(Direction direction) {
         // This method is called only if the move is possible, do not check again
         Position nextPos = direction.nextPosition(getPosition());
         GameObject next = game.grid().get(nextPos);
-        if (next instanceof Bonus bonus) {
-            bonus.takenBy(this);
+        if (next instanceof Takeable taken) {
+            taken.takenBy(this);
         }
         setPosition(nextPos);
     }
@@ -44,18 +58,7 @@ public class Player extends GameObject implements Movable, TakeVisitor {
         return lives;
     }
 
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public void requestMove(Direction direction) {
-        if (direction != this.direction) {
-            this.direction = direction;
-            setModified(true);
-        }
-        moveRequested = true;
-    }
-
+    @Override
     public final boolean canMove(Direction direction) {
         boolean canMove;
         switch (direction) {
@@ -73,17 +76,7 @@ public class Player extends GameObject implements Movable, TakeVisitor {
         return canMove;
     }
 
-    public void update(long now) {
-        if (moveRequested) {
-            if (canMove(direction)) {
-                doMove(direction);
-            }
-        }
-        moveRequested = false;
-    }
-
-    @Override
-    public void explode() {
-        // TODO
+    public boolean tookPrincess() {
+        return this.takenPrincess;
     }
 }

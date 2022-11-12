@@ -4,6 +4,9 @@ import fr.ubx.poo.ubomb.game.Direction;
 import javafx.scene.image.Image;
 
 public class ImageResourceFactory {
+    private ImageResourceFactory() {
+    }
+
     public static ImageResource digit(int i) {
         if (i < 0 || i > 9)
             throw new IllegalArgumentException("Digit must be in [0-9]");

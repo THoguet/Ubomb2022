@@ -2,9 +2,11 @@ package fr.ubx.poo.ubomb.launcher;
 
 import static fr.ubx.poo.ubomb.launcher.Entity.*;
 
+import fr.ubx.poo.ubomb.go.decor.character.Monster;
+
 public class MapLevelDefault extends MapLevel {
-    private final static Entity[][] level1 = {
-            { Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty },
+    private static final Entity[][] level1 = {
+            { Empty, Empty, Monster, Princess, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty },
             { Empty, Empty, Stone, Empty, Stone, Empty, Stone, Stone, Stone, Stone, Empty, Empty },
             { Empty, Empty, Empty, Empty, Stone, Empty, Stone, Empty, Empty, Stone, Empty, Empty },
             { Empty, Empty, Empty, Empty, Stone, Empty, Stone, Empty, Empty, Stone, Empty, Empty },
@@ -18,13 +20,13 @@ public class MapLevelDefault extends MapLevel {
             { Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty },
             { Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty }
     };
-    private final static int width = 12;
-    private final static int height = 13;
+    private static final int WIDTH = 12;
+    private static final int HEIGHT = 13;
 
     public MapLevelDefault() {
-        super(width, height);
-        for (int i = 0; i < width; i++)
-            for (int j = 0; j < height; j++)
+        super(WIDTH, HEIGHT);
+        for (int i = 0; i < WIDTH; i++)
+            for (int j = 0; j < HEIGHT; j++)
                 set(i, j, level1[j][i]);
     }
 }

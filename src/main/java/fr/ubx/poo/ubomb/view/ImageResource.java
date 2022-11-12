@@ -65,12 +65,12 @@ public enum ImageResource {
 
     private final Image image;
 
-    public static final int size = 40;
+    public static final int SIZE = 40;
 
     ImageResource(String file) {
         try {
             this.image = new Image(ImageResource.class.getResourceAsStream("/images/" + file));
-            if (image.getWidth() != size && image.getHeight() != size) {
+            if (image.getWidth() != SIZE && image.getHeight() != SIZE) {
                 String msg = "File " + file + " does not have the correct size " + image.getWidth() + " x "
                         + image.getHeight();
                 throw new RuntimeException(msg);

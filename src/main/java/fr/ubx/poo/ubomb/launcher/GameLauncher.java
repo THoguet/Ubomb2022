@@ -6,6 +6,8 @@ import fr.ubx.poo.ubomb.game.Level;
 import fr.ubx.poo.ubomb.game.Position;
 
 public class GameLauncher {
+    private GameLauncher() {
+    }
 
     public static Game load() {
         Configuration configuration = new Configuration(new Position(0, 0), 3, 5, 4000, 5, 1000);

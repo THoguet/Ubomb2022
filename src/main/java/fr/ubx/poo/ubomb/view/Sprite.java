@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 
 public class Sprite {
 
-    public static final int size = 40;
+    public static final int SIZE = 40;
     private final Pane layer;
     private final GameObject gameObject;
     private ImageView imageView;
@@ -35,6 +35,7 @@ public class Sprite {
     }
 
     public void updateImage() {
+        // only update on movable GO
     }
 
     public Position getPosition() {
@@ -48,8 +49,8 @@ public class Sprite {
             }
             updateImage();
             imageView = new ImageView(this.image);
-            imageView.setX(getPosition().x() * size);
-            imageView.setY(getPosition().y() * size);
+            imageView.setX((double) getPosition().x() * SIZE);
+            imageView.setY((double) getPosition().y() * SIZE);
             layer.getChildren().add(imageView);
             gameObject.setModified(false);
         }

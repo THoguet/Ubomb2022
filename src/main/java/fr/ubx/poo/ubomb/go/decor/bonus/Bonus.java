@@ -6,8 +6,8 @@ package fr.ubx.poo.ubomb.go.decor.bonus;
 
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.Takeable;
-import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.decor.Decor;
+import fr.ubx.poo.ubomb.go.decor.character.Player;
 
 public abstract class Bonus extends Decor implements Takeable {
     public Bonus(Position position) {

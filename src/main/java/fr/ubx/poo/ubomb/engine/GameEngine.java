@@ -60,9 +60,8 @@ public final class GameEngine {
         int width = game.grid().width();
         int sceneWidth = width * ImageResource.size;
         int sceneHeight = height * ImageResource.size;
-        Scene scene = new Scene(root, sceneWidth, sceneHeight + StatusBar.height);
+        Scene scene = new Scene(root, sceneWidth, (double) sceneHeight + StatusBar.height);
         scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
-
         stage.setScene(scene);
         stage.setResizable(false);
         stage.sizeToScene();
@@ -98,14 +97,6 @@ public final class GameEngine {
                 cleanupSprites();
                 render();
                 statusBar.update(game);
-
-                // End Game
-                if (player.getLives() <= 0){
-                    showMessage("YOU DIED", Color.DARKRED);
-                } else if(player.getPosition().x() == -1/*.equals(princess.getPosition()) //TODO */){
-                    showMessage("YOU RESCUED THE PRINCESS", Color.GOLD);
-                }
-
             }
         };
     }
@@ -117,13 +108,11 @@ public final class GameEngine {
     private void animateExplosion(Position src, Position dst) {
         ImageView explosion = new ImageView(ImageResource.EXPLOSION.getImage());
         TranslateTransition tt = new TranslateTransition(Duration.millis(200), explosion);
-        tt.setFromX(src.x() * Sprite.size);
-        tt.setFromY(src.y() * Sprite.size);
-        tt.setToX(dst.x() * Sprite.size);
-        tt.setToY(dst.y() * Sprite.size);
-        tt.setOnFinished(e -> {
-            layer.getChildren().remove(explosion);
-        });
+        tt.setFromX((double) src.x() * Sprite.size);
+        tt.setFromY((double) src.y() * Sprite.size);
+        tt.setToX((double) dst.x() * Sprite.size);
+        tt.setToY((double) dst.y() * Sprite.size);
+        tt.setOnFinished(e -> layer.getChildren().remove(explosion));
         layer.getChildren().add(explosion);
         tt.play();
     }
@@ -173,10 +162,13 @@ public final class GameEngine {
 
     private void update(long now) {
         player.update(now);
-
-        if (player.getLives() == 0) {
+        // End Game
+        if (player.getLives() <= 0) {
             gameLoop.stop();
-            showMessage("Perdu!", Color.RED);
+            showMessage("YOU DIED", Color.DARKRED);
+        } else if (player.getPosition().x() == -1/* .equals(princess.getPosition()) //TODO */) {
+            gameLoop.stop();
+            showMessage("YOU RESCUED THE PRINCESS", Color.GOLD);
         }
     }
 

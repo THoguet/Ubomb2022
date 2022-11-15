@@ -6,12 +6,12 @@ import fr.ubx.poo.ubomb.go.GameObject;
 
 public abstract class Decor extends GameObject {
 
-    public Decor(Game game, Position position) {
-        super(game, position);
-    }
+	public Decor(Game game, Position position) {
+		super(game, position);
+	}
 
-    public Decor(Position position) {
-        super(position);
-    }
+	public Decor(Position position) {
+		super(position);
+	}
 
 }

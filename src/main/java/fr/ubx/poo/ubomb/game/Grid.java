@@ -5,17 +5,17 @@ import fr.ubx.poo.ubomb.go.decor.Decor;
 import java.util.*;
 
 public interface Grid {
-    int width();
+	int width();
 
-    int height();
+	int height();
 
-    Decor get(Position position);
+	Decor get(Position position);
 
-    void remove(Position position);
+	void remove(Position position);
 
-    Collection<Decor> values();
+	Collection<Decor> values();
 
-    boolean inside(Position nextPos);
+	boolean inside(Position nextPos);
 
-    void set(Position position, Decor decor);
+	void set(Position position, Decor decor);
 }

@@ -8,7 +8,7 @@ import fr.ubx.poo.ubomb.game.Direction;
 
 // For GameObjects that can move
 public interface Movable {
-    boolean canMove(Direction direction);
+	boolean canMove(Direction direction);
 
-    void doMove(Direction direction);
+	void doMove(Direction direction);
 }

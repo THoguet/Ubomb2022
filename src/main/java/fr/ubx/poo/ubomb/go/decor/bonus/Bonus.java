@@ -10,18 +10,18 @@ import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.character.Player;
 
 public abstract class Bonus extends Decor implements Takeable {
-    public Bonus(Position position) {
-        super(position);
-    }
+	public Bonus(Position position) {
+		super(position);
+	}
 
-    @Override
-    public boolean walkableBy(Player player) {
-        return true;
-    }
+	@Override
+	public boolean walkableBy(Player player) {
+		return true;
+	}
 
-    @Override
-    public void explode() {
-        remove();
-    }
+	@Override
+	public void explode() {
+		remove();
+	}
 
 }

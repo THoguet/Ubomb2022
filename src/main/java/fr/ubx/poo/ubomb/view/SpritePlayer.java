@@ -10,15 +10,15 @@ import javafx.scene.layout.Pane;
 
 public class SpritePlayer extends Sprite {
 
-    public SpritePlayer(Pane layer, Player player) {
-        super(layer, null, player);
-        updateImage();
-    }
+	public SpritePlayer(Pane layer, Player player) {
+		super(layer, null, player);
+		updateImage();
+	}
 
-    @Override
-    public void updateImage() {
-        Player player = (Player) getGameObject();
-        Image image = ImageResourceFactory.getPlayer(player.getDirection()).getImage();
-        setImage(image);
-    }
+	@Override
+	public void updateImage() {
+		Player player = (Player) getGameObject();
+		Image image = ImageResourceFactory.getPlayer(player.getDirection()).getImage();
+		setImage(image);
+	}
 }

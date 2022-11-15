@@ -1,13 +1,13 @@
 plugins {
-    id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
+	id 'application'
+	id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 group 'fr.ubx.poo.ubomb'
 version '1.0'
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
@@ -17,13 +17,13 @@ sourceCompatibility = '17'
 targetCompatibility = '17'
 
 tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+	options.encoding = 'UTF-8'
 }
 
 mainClassName = 'fr.ubx.poo.ubomb.Main'
 
 javafx {
-    version = '17'
-    modules = ['javafx.controls', 'javafx.fxml']
+	version = '17'
+	modules = ['javafx.controls', 'javafx.fxml']
 }
 

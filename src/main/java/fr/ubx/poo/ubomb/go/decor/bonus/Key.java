@@ -8,16 +8,16 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.decor.character.Player;
 
 public class Key extends Bonus {
-    public Key(Position position) {
-        super(position);
-    }
+	public Key(Position position) {
+		super(position);
+	}
 
-    @Override
-    public void explode() {
-    }
+	@Override
+	public void explode() {
+	}
 
-    @Override
-    public void takenBy(Player player) {
-        player.take(this);
-    }
+	@Override
+	public void takenBy(Player player) {
+		player.take(this);
+	}
 }

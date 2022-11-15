@@ -14,25 +14,25 @@ import fr.ubx.poo.ubomb.go.decor.bonus.*;
 //fusion Monster + Player (movable)
 //princess reste seule car =/= movable
 public class Monster extends Character implements Takeable {
-    public Monster(Position position) {
-        super(position);
-    }
+	public Monster(Position position) {
+		super(position);
+	}
 
-    public Monster(Game game, Position position) {
-        super(game, position);
-    }
+	public Monster(Game game, Position position) {
+		super(game, position);
+	}
 
-    public boolean canMove(Direction direction) {
-        return true;
-    }
+	public boolean canMove(Direction direction) {
+		return true;
+	}
 
-    public void doMove(Direction direction) {
-        // TODO
-    }
+	public void doMove(Direction direction) {
+		// TODO
+	}
 
-    @Override
-    public void takenBy(Player player) {
-        player.take(this);
-    }
+	@Override
+	public void takenBy(Player player) {
+		player.take(this);
+	}
 
 }

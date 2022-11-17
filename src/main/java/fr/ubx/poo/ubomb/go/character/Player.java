@@ -10,7 +10,7 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.*;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
 
-public class Player extends Character implements TakeVisitor, Walkable {
+public class Player extends Character implements TakeVisitor {
 	private int lives;
 	private boolean takenPrincess = false;
 

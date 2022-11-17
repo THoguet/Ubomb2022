@@ -7,12 +7,10 @@ package fr.ubx.poo.ubomb.go.character;
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
-import fr.ubx.poo.ubomb.go.GameObject;
-import fr.ubx.poo.ubomb.go.TakeVisitor;
-import fr.ubx.poo.ubomb.go.Takeable;
+import fr.ubx.poo.ubomb.go.*;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
 
-public class Player extends Character implements TakeVisitor {
+public class Player extends Character implements TakeVisitor, Walkable {
 	private int lives;
 	private boolean takenPrincess = false;
 
@@ -55,18 +53,23 @@ public class Player extends Character implements TakeVisitor {
 	public final boolean canMove(Direction direction) {
 		boolean canMove;
 		switch (direction) {
-			case UP ->
+			case UP -> {
 				canMove = game.player().getPosition().y() != 0;
-			case DOWN ->
+			}
+			case DOWN -> {
 				canMove = game.player().getPosition().y() != game.grid().height() - 1;
-			case LEFT ->
+			}
+			case LEFT -> {
 				canMove = game.player().getPosition().x() != 0;
-			case RIGHT ->
+			}
+			case RIGHT -> {
 				canMove = game.player().getPosition().x() != game.grid().width() - 1;
+			}
 			default ->
-				throw new RuntimeException("direction in the 4th dimension");
+				throw new RuntimeException("direction in the 3rd dimension");
 		}
-		return canMove;
+		return canMove
+				&& game.grid().get(direction.nextPosition(game.player().getPosition())).walkableBy(game.player());
 	}
 
 	public boolean tookPrincess() {

@@ -3,7 +3,6 @@ package fr.ubx.poo.ubomb.game;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.character.Player;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class Game {
 	}
 
 	public Grid grid() {
-		return this.grid[this.level];
+		return this.grid[this.level - 1];
 	}
 
 	public Player player() {

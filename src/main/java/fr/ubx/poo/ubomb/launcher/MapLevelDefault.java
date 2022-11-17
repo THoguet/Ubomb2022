@@ -4,7 +4,7 @@ import static fr.ubx.poo.ubomb.launcher.Entity.*;
 
 public class MapLevelDefault extends MapLevel {
 	private static final Entity[][] level1 = {
-			{ Empty, Empty, Monster, Princess, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty },
+			{ Empty, Empty, Empty, Princess, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty },
 			{ Empty, Empty, Stone, Empty, Stone, Empty, Stone, Stone, Stone, Stone, Empty, Empty },
 			{ Empty, Empty, Empty, Empty, Stone, Empty, Stone, Empty, Empty, Stone, Empty, Empty },
 			{ Empty, Empty, Empty, Empty, Stone, Empty, Stone, Empty, Empty, Stone, Empty, Empty },

@@ -5,9 +5,8 @@
 package fr.ubx.poo.ubomb.view;
 
 import fr.ubx.poo.ubomb.go.GameObject;
+import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
-import fr.ubx.poo.ubomb.go.decor.character.Monster;
-import fr.ubx.poo.ubomb.go.decor.character.Princess;
 import fr.ubx.poo.ubomb.go.decor.*;
 import javafx.scene.layout.Pane;
 

@@ -1,8 +1,7 @@
 package fr.ubx.poo.ubomb.game;
 
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
-import fr.ubx.poo.ubomb.go.decor.character.Monster;
-import fr.ubx.poo.ubomb.go.decor.character.Princess;
+import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.decor.*;
 import fr.ubx.poo.ubomb.launcher.Entity;
 import fr.ubx.poo.ubomb.launcher.MapLevel;
@@ -37,9 +36,6 @@ public class Level implements Grid {
 						break;
 					case Key:
 						elements.put(position, new Key(position));
-						break;
-					case Monster:
-						elements.put(position, new Monster(position));
 						break;
 					case Princess:
 						elements.put(position, new Princess(position));

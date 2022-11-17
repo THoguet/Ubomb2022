@@ -1,6 +1,6 @@
 package fr.ubx.poo.ubomb.view;
 
-import fr.ubx.poo.ubomb.go.decor.character.Monster;
+import fr.ubx.poo.ubomb.go.character.Monster;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 

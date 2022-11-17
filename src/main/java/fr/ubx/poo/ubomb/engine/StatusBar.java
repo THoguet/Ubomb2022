@@ -5,7 +5,7 @@
 package fr.ubx.poo.ubomb.engine;
 
 import fr.ubx.poo.ubomb.game.Game;
-import fr.ubx.poo.ubomb.go.decor.character.Player;
+import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.view.ImageResource;
 import fr.ubx.poo.ubomb.view.ImageResourceFactory;
 import javafx.scene.Group;

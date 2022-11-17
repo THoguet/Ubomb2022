@@ -2,8 +2,6 @@ package fr.ubx.poo.ubomb.launcher;
 
 import static fr.ubx.poo.ubomb.launcher.Entity.*;
 
-import fr.ubx.poo.ubomb.go.decor.character.Monster;
-
 public class MapLevelDefault extends MapLevel {
 	private static final Entity[][] level1 = {
 			{ Empty, Empty, Monster, Princess, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty },

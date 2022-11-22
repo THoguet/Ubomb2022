@@ -1,6 +1,5 @@
 package fr.ubx.poo.ubomb.go;
 
-import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
 
 // Double dispatch visitor pattern

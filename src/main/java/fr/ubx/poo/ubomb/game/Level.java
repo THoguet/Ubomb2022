@@ -23,10 +23,12 @@ public class Level implements Grid {
 		this.width = entities.width();
 		this.height = entities.height();
 
-		for (int i = 0; i < width; i++)
-			for (int j = 0; j < height; j++) {
+		for (int i = 0; i < height; i++)
+			for (int j = 0; j < width; j++) {
 				Position position = new Position(i, j);
 				Entity entity = entities.get(i, j);
+				if (entity == null)
+					continue;
 				switch (entity) {
 					case Stone:
 						elements.put(position, new Stone(position));
@@ -40,6 +42,18 @@ public class Level implements Grid {
 					case Princess:
 						elements.put(position, new Princess(position));
 						break;
+					case Box:
+						elements.put(position, new Box(position));
+						break;
+					// TODO
+					case BombRangeInc:
+					case BombNumberDec:
+					case BombNumberInc:
+					case BombRangeDec:
+					case Heart:
+					case DoorNextClosed:
+					case DoorPrevOpened:
+					case DoorNextOpened:
 					case Empty:
 						break;
 					default:

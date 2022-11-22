@@ -1,29 +1,37 @@
 package fr.ubx.poo.ubomb.game;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.IntStream;
+
 import fr.ubx.poo.ubomb.go.character.Monster;
+import fr.ubx.poo.ubomb.launcher.Entity;
 
 public class Monsters {
-	private final Game game;
-	private final Monster[][] monstersByLevel;
+	private final List<List<Monster>> monstersByLevel;
 
-	public Monsters(Game g, Monster[][] m) {
-		this.monstersByLevel = m;
-		this.game = g;
+	public Monsters() {
+		monstersByLevel = new ArrayList<>();
 	}
 
-	public boolean isThereMonster(Position pos) {
-		for (int i = 0; i < this.monstersByLevel[this.game.getLevel()].length; i++) {
-			if (this.monstersByLevel[this.game.getLevel() - 1][i].getPosition().equals(pos))
+	public boolean isThereMonster(Position pos, int level) {
+		for (int i = 0; i < this.monstersByLevel.get(level).size(); i++) {
+			if (this.monstersByLevel.get(level).get(i).getPosition().equals(pos))
 				return true;
 		}
 		return false;
 	}
 
-	public Monster[] getMonsters() {
-		return this.monstersByLevel[this.game.getLevel() - 1];
+	public void add(Monster m, int level) {
+		while (this.monstersByLevel.size() <= level) {
+			this.monstersByLevel.add(new ArrayList<>());
+		}
+		this.monstersByLevel.get(level).add(m);
 	}
 
-	public Monster[] getMonsters(int level) {
-		return this.monstersByLevel[level];
+	public List<Monster> getMonsters(int level) {
+		return this.monstersByLevel.get(level);
 	}
+
 }

@@ -6,8 +6,10 @@ package fr.ubx.poo.ubomb.go.character;
 
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
+import fr.ubx.poo.ubomb.game.Grid;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.*;
+import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
 
 public class Player extends Character implements TakeVisitor {
@@ -51,25 +53,13 @@ public class Player extends Character implements TakeVisitor {
 
 	@Override
 	public final boolean canMove(Direction direction) {
-		boolean canMove;
-		switch (direction) {
-			case UP -> {
-				canMove = game.player().getPosition().y() != 0;
-			}
-			case DOWN -> {
-				canMove = game.player().getPosition().y() != game.grid().height() - 1;
-			}
-			case LEFT -> {
-				canMove = game.player().getPosition().x() != 0;
-			}
-			case RIGHT -> {
-				canMove = game.player().getPosition().x() != game.grid().width() - 1;
-			}
-			default ->
-				throw new RuntimeException("direction in the 3rd dimension");
-		}
-		return canMove
-				&& game.grid().get(direction.nextPosition(game.player().getPosition())).walkableBy(game.player());
+		Position nextPos = direction.nextPosition(getPosition());
+		Decor tmp = game.grid().get(nextPos);
+		boolean inside = game.grid().inside(nextPos);
+		boolean walkable = true;
+		if (tmp != null)
+			walkable = tmp.walkableBy(game.player());
+		return inside && walkable;
 	}
 
 	public boolean tookPrincess() {

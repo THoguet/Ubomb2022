@@ -61,13 +61,6 @@ public class Player extends Character implements TakeVisitor {
 		this.takenPrincess = true;
 	}
 
-	public void take(Bonus bonus) {
-		// TODO -> bonus
-		// switch (bonus) {
-
-		// }
-	}
-
 	// Lives
 	public int getLives() {
 		return lives;
@@ -128,19 +121,12 @@ public class Player extends Character implements TakeVisitor {
 	public final boolean canMove(Direction direction) {
 		Position nextPos = direction.nextPosition(getPosition());
 		Decor tmp = game.grid().get(nextPos);
-		boolean inside = game.grid().inside(nextPos);
-		boolean walkable = true;
-		if (tmp != null){
-			walkable = tmp.walkableBy(game.player());
-			if (tmp instanceof Box){
-				if (((Box) tmp).canMove(direction)){
-					((Box) tmp).doMove(direction);
-					return true;
-				}
-				return false;
-			}
+		if (!game.grid().inside(nextPos))
+			return false;
+		if (tmp != null) {
+			return tmp.walkableBy(game.player());
 		}
-		return inside && walkable;
+		return true;
 	}
 
 	public boolean tookPrincess() {
@@ -155,5 +141,13 @@ public class Player extends Character implements TakeVisitor {
 	@Override
 	public void take(DoorPrevOpened door) {
 		this.game.prevLevel();
+	}
+
+	public boolean canBoxMove(Box box, Direction direction) {
+		Position nextPos = direction.nextPosition(box.getPosition());
+		if (!game.grid().inside(nextPos))
+			return false;
+		Decor tmp = game.grid().get(nextPos);
+		return tmp != null && tmp.walkableBy(box);
 	}
 }

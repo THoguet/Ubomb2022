@@ -6,7 +6,6 @@ package fr.ubx.poo.ubomb.engine;
 
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
-import fr.ubx.poo.ubomb.game.Monsters;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.character.Player;
@@ -137,7 +136,7 @@ public final class GameEngine {
 		for (Sprite sprite : sprites) {
 			if (sprite.getPosition().equals(playerPosition)) {
 				Monster m = new Monster(playerPosition);
-				if (m.equals(sprite.getGameObject()) && !this.player.isInvisibile(now)) {
+				if (m.equals(sprite.getGameObject()) && !this.player.isInvisible(now)) {
 					this.player.addLives(-1);
 					this.player.setInvisibilityStart(now);
 				}

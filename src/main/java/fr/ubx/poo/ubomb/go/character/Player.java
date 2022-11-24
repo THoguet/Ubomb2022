@@ -45,7 +45,7 @@ public class Player extends Character implements TakeVisitor {
 		this.invisibilityStart = invisibilityStart;
 	}
 
-	public boolean isInvisibile(long now) {
+	public boolean isInvisible(long now) {
 		return (this.invisibilityStart + this.game.configuration().playerInvisibilityTime() * 1000000) - now > 0;
 	}
 
@@ -53,6 +53,7 @@ public class Player extends Character implements TakeVisitor {
 	public void take(Key key) {
 		System.out.println("Take the key ...");
 		this.addKeys(1);
+		key.remove();
 	}
 
 	@Override

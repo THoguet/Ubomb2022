@@ -38,7 +38,7 @@ public class Player extends Character implements TakeVisitor {
 	@Override
 	public void take(Key key) {
 		System.out.println("Take the key ...");
-
+		this.setKeys(1);
 	}
 
 	@Override

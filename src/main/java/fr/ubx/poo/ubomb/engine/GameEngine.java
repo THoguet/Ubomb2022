@@ -138,7 +138,7 @@ public final class GameEngine {
 			if (sprite.getPosition().equals(playerPosition)) {
 				Monster m = new Monster(playerPosition);
 				if (m.equals(sprite.getGameObject()) && !this.player.isInvisibile(now)) {
-					this.player.setLives(-1);
+					this.player.addLives(-1);
 					this.player.setInvisibilityStart(now);
 				}
 			}

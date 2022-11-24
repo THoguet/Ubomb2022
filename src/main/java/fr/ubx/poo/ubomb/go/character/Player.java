@@ -16,10 +16,11 @@ import fr.ubx.poo.ubomb.go.decor.doors.DoorPrevOpened;
 
 public class Player extends Character implements TakeVisitor {
 	private int lives;
+	private int nbBombsMax;
 	private int availableBombs;
 	private int bombRange;
 	private int keys;
-	private int nbBombsMax;
+
 	private boolean takenPrincess = false;
 	private long invisibilityStart = 0;
 
@@ -59,6 +60,39 @@ public class Player extends Character implements TakeVisitor {
 	@Override
 	public void take(Princess p) {
 		this.takenPrincess = true;
+	}
+
+	public void take(BombNumberInc BNI) {
+		System.out.println("bomb number +");
+		this.addAvailableBombs(1);
+		this.addNbBombsMax(1);
+		BNI.remove();
+	}
+
+	public void take(BombNumberDec BND) {
+		System.out.println("bomb number -");
+		if (getNbBombsMax() > 1)
+			this.addNbBombsMax(-1);
+		BND.remove();
+	}
+
+	public void take(BombRangeInc BRI) {
+		System.out.println("bomb range +");
+		this.addBombRange(1);
+		BRI.remove();
+	}
+
+	public void take(BombRangeDec BRD) {
+		System.out.println("bomb number -");
+		if (getBombRange() > 1)
+			this.addBombRange(-1);
+		BRD.remove();
+	}
+
+	public void take(Heart heart) {
+		System.out.println("healing");
+		this.addLives(1);
+		heart.remove();
 	}
 
 	// Lives

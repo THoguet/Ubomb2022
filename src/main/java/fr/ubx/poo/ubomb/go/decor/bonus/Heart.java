@@ -4,7 +4,7 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.Takeable;
 
-public class Heart extends Bonus implements Takeable {
+public class Heart extends Bonus {
     public Heart(Position position) {
         super(position);
     }

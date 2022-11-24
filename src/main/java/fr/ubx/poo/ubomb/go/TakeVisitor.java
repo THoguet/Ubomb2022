@@ -15,4 +15,13 @@ public interface TakeVisitor {
 
 	void take(DoorPrevOpened door);
 
+	void take(BombNumberInc BNI);
+
+	void take(BombNumberDec BND);
+
+	void take(BombRangeInc BRI);
+
+	void take(BombRangeDec BRD);
+
+	void take(Heart heart);
 }

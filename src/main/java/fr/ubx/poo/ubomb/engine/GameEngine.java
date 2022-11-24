@@ -85,8 +85,9 @@ public final class GameEngine {
 		sprites.add(new SpritePlayer(layer, player));
 
 		// create monster sprites
-		for (var monster : game.getMonsters().getMonsters(game.getLevel())) {
+		for (var monster : game.getMonsters().getMonstersByLevel(game.getLevel())) {
 			sprites.add(new SpriteMonster(layer, monster));
+			monster.setModified(true);
 		}
 	}
 
@@ -180,13 +181,17 @@ public final class GameEngine {
 			showMessage("YOU RESCUED THE PRINCESS", Color.GOLD);
 		}
 		if (this.level != game.getLevel()) {
-			this.level = game.getLevel();
 			gameLoop.stop();
 			sprites.forEach(Sprite::remove);
 			sprites.clear();
-			Position entryLevel = this.game.getLevelEntry();
-			if (entryLevel != null)
-				this.player.setPosition(entryLevel);
+			Position newPosPlayer = null;
+			if (game.getLevel() > this.level)
+				newPosPlayer = this.game.getLevelDoor(true);
+			else
+				newPosPlayer = this.game.getLevelDoor(false);
+			if (newPosPlayer != null)
+				this.player.setPosition(newPosPlayer);
+			this.level = game.getLevel();
 			this.initialize();
 			this.buildAndSetGameLoop();
 			this.start();

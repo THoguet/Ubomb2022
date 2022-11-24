@@ -6,8 +6,8 @@ import javafx.scene.layout.Pane;
 
 public class SpriteMonster extends Sprite {
 
-	public SpriteMonster(Pane layer, Monster player) {
-		super(layer, null, player);
+	public SpriteMonster(Pane layer, Monster monster) {
+		super(layer, null, monster);
 		updateImage();
 	}
 

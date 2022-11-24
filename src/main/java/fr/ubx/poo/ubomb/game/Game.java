@@ -4,7 +4,9 @@ import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.decor.Decor;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorNextOpened;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorPrevOpened;
+import fr.ubx.poo.ubomb.go.decor.doors.Doors;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -47,7 +49,7 @@ public class Game {
 	}
 
 	public List<Monster> getThisLevelMonster() {
-		return leveledMonsters.getMonsters(this.level);
+		return leveledMonsters.getMonstersByLevel(this.level);
 	}
 
 	// Returns the player, monsters and bomb at a given position
@@ -82,12 +84,17 @@ public class Game {
 		this.level--;
 	}
 
-	public Position getLevelEntry() {
+	public Position getLevelDoor(boolean next) {
 		for (int i = 0; i < this.grid[this.level].width(); i++) {
 			for (int j = 0; j < this.grid[this.level].height(); j++) {
 				Position p = new Position(i, j);
 				Decor d = this.grid[this.level].get(p);
-				if (d != null && new DoorPrevOpened(p).equals(d)) {
+				Doors dEqual = null;
+				if (next)
+					dEqual = new DoorPrevOpened(p);
+				else
+					dEqual = new DoorNextOpened(p);
+				if (d != null && dEqual.equals(d)) {
 					return p;
 				}
 			}

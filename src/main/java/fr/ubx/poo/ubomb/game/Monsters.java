@@ -27,7 +27,7 @@ public class Monsters {
 		this.monstersByLevel.get(level).add(m);
 	}
 
-	public List<Monster> getMonsters(int level) {
+	public List<Monster> getMonstersByLevel(int level) {
 		if (level >= this.monstersByLevel.size())
 			return new ArrayList<>();
 		return this.monstersByLevel.get(level);

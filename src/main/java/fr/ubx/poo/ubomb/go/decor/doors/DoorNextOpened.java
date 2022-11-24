@@ -14,4 +14,9 @@ public class DoorNextOpened extends Doors {
 		player.take(this);
 	}
 
+	@Override
+	public boolean equals(Object arg0) {
+		return arg0 instanceof DoorNextOpened && super.equals(arg0);
+	}
+
 }

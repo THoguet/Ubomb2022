@@ -8,6 +8,7 @@ import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.*;
+import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorNextOpened;
@@ -51,7 +52,7 @@ public class Player extends Character implements TakeVisitor {
 	@Override
 	public void take(Key key) {
 		System.out.println("Take the key ...");
-		this.setKeys(1);
+		this.addKeys(1);
 	}
 
 	@Override
@@ -66,6 +67,51 @@ public class Player extends Character implements TakeVisitor {
 		// }
 	}
 
+	// Lives
+	public int getLives() {
+		return lives;
+	}
+
+	public void addLives(int delta) {
+		lives += delta;
+	}
+
+	// nbBombsMax
+	public int getNbBombsMax() {
+		return nbBombsMax;
+	}
+
+	public void addNbBombsMax(int delta) {
+		nbBombsMax += delta;
+	}
+
+	// AvailableBombs
+	public int getAvailableBombs() {
+		return availableBombs;
+	}
+
+	public void addAvailableBombs(int delta) {
+		availableBombs += delta;
+	}
+
+	// BombRange
+	public int getBombRange() {
+		return bombRange;
+	}
+
+	public void addBombRange(int delta) {
+		bombRange += delta;
+	}
+
+	// Keys
+	public int getKeys() {
+		return keys;
+	}
+
+	public void addKeys(int delta) {
+		keys += delta;
+	}
+
 	@Override
 	public void doMove(Direction direction) {
 		// This method is called only if the move is possible, do not check again
@@ -77,59 +123,22 @@ public class Player extends Character implements TakeVisitor {
 		setPosition(nextPos);
 	}
 
-	// Lives
-	public int getLives() {
-		return lives;
-	}
-
-	public void setLives(int delta) {
-		lives += delta;
-	}
-
-	// nbBombsMax
-	public int getNbBombsMax() {
-		return nbBombsMax;
-	}
-
-	public void setNbBombsMax(int delta) {
-		nbBombsMax += delta;
-	}
-
-	// AvailableBombs
-	public int getAvailableBombs() {
-		return availableBombs;
-	}
-
-	public void setAvailableBombs(int delta) {
-		availableBombs += delta;
-	}
-
-	// BombRange
-	public int getBombRange() {
-		return bombRange;
-	}
-
-	public void setBombRange(int delta) {
-		bombRange += delta;
-	}
-
-	// Keys
-	public int getKeys() {
-		return keys;
-	}
-
-	public void setKeys(int delta) {
-		keys += delta;
-	}
-
 	@Override
 	public final boolean canMove(Direction direction) {
 		Position nextPos = direction.nextPosition(getPosition());
 		Decor tmp = game.grid().get(nextPos);
 		boolean inside = game.grid().inside(nextPos);
 		boolean walkable = true;
-		if (tmp != null)
+		if (tmp != null){
 			walkable = tmp.walkableBy(game.player());
+			if (tmp instanceof Box){
+				if (((Box) tmp).canMove(direction)){
+					((Box) tmp).doMove(direction);
+					return true;
+				}
+				return false;
+			}
+		}
 		return inside && walkable;
 	}
 

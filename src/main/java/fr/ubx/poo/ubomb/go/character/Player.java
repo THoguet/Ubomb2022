@@ -6,11 +6,12 @@ package fr.ubx.poo.ubomb.go.character;
 
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
-import fr.ubx.poo.ubomb.game.Grid;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.*;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorNextOpened;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorPrevOpened;
 
 public class Player extends Character implements TakeVisitor {
 	private int lives;
@@ -46,10 +47,10 @@ public class Player extends Character implements TakeVisitor {
 	}
 
 	public void take(Bonus bonus) {
-		//TODO -> bonus
-		//switch (bonus) {
+		// TODO -> bonus
+		// switch (bonus) {
 
-		//}
+		// }
 	}
 
 	@Override
@@ -63,42 +64,50 @@ public class Player extends Character implements TakeVisitor {
 		setPosition(nextPos);
 	}
 
-	//Lives
+	// Lives
 	public int getLives() {
 		return lives;
 	}
+
 	public void setLives(int delta) {
 		lives += delta;
 	}
-	//nbBombsMax
+
+	// nbBombsMax
 	public int getNbBombsMax() {
 		return nbBombsMax;
 	}
+
 	public void setNbBombsMax(int delta) {
 		nbBombsMax += delta;
 	}
-	//AvailableBombs
+
+	// AvailableBombs
 	public int getAvailableBombs() {
 		return availableBombs;
 	}
+
 	public void setAvailableBombs(int delta) {
 		availableBombs += delta;
 	}
-	//BombRange
+
+	// BombRange
 	public int getBombRange() {
 		return bombRange;
 	}
+
 	public void setBombRange(int delta) {
 		bombRange += delta;
 	}
-	//Keys
+
+	// Keys
 	public int getKeys() {
 		return keys;
 	}
+
 	public void setKeys(int delta) {
 		keys += delta;
 	}
-
 
 	@Override
 	public final boolean canMove(Direction direction) {
@@ -113,5 +122,15 @@ public class Player extends Character implements TakeVisitor {
 
 	public boolean tookPrincess() {
 		return this.takenPrincess;
+	}
+
+	@Override
+	public void take(DoorNextOpened door) {
+		this.game.nextLevel();
+	}
+
+	@Override
+	public void take(DoorPrevOpened door) {
+		this.game.prevLevel();
 	}
 }

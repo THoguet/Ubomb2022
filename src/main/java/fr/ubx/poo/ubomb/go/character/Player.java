@@ -6,20 +6,27 @@ package fr.ubx.poo.ubomb.go.character;
 
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
+import fr.ubx.poo.ubomb.game.Grid;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.*;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
-import fr.ubx.poo.ubomb.go.decor.doors.DoorNextOpened;
-import fr.ubx.poo.ubomb.go.decor.doors.DoorPrevOpened;
 
 public class Player extends Character implements TakeVisitor {
 	private int lives;
+	private int availableBombs;
+	private int bombRange;
+	private int keys;
+	private int nbBombsMax;
 	private boolean takenPrincess = false;
 
 	public Player(Position position) {
 		super(position);
 		this.lives = game.configuration().playerLives();
+		this.nbBombsMax = game.configuration().bombBagCapacity();
+		this.availableBombs = game.configuration().bombBagCapacity();
+		this.bombRange = 1;
+		this.keys = 0;
 	}
 
 	public Player(Game game, Position position) {
@@ -30,11 +37,19 @@ public class Player extends Character implements TakeVisitor {
 	@Override
 	public void take(Key key) {
 		System.out.println("Take the key ...");
+
 	}
 
 	@Override
 	public void take(Princess p) {
 		this.takenPrincess = true;
+	}
+
+	public void take(Bonus bonus) {
+		//TODO -> bonus
+		//switch (bonus) {
+
+		//}
 	}
 
 	@Override
@@ -48,9 +63,42 @@ public class Player extends Character implements TakeVisitor {
 		setPosition(nextPos);
 	}
 
+	//Lives
 	public int getLives() {
 		return lives;
 	}
+	public void setLives(int delta) {
+		lives += delta;
+	}
+	//nbBombsMax
+	public int getNbBombsMax() {
+		return nbBombsMax;
+	}
+	public void setNbBombsMax(int delta) {
+		nbBombsMax += delta;
+	}
+	//AvailableBombs
+	public int getAvailableBombs() {
+		return availableBombs;
+	}
+	public void setAvailableBombs(int delta) {
+		availableBombs += delta;
+	}
+	//BombRange
+	public int getBombRange() {
+		return bombRange;
+	}
+	public void setBombRange(int delta) {
+		bombRange += delta;
+	}
+	//Keys
+	public int getKeys() {
+		return keys;
+	}
+	public void setKeys(int delta) {
+		keys += delta;
+	}
+
 
 	@Override
 	public final boolean canMove(Direction direction) {
@@ -65,15 +113,5 @@ public class Player extends Character implements TakeVisitor {
 
 	public boolean tookPrincess() {
 		return this.takenPrincess;
-	}
-
-	@Override
-	public void take(DoorNextOpened door) {
-		this.game.nextLevel();
-	}
-
-	@Override
-	public void take(DoorPrevOpened door) {
-		this.game.prevLevel();
 	}
 }

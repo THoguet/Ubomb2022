@@ -4,7 +4,7 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.Takeable;
 
-public class BombRangeInc extends Bonus implements Takeable {
+public class BombRangeInc extends Bonus {
     public BombRangeInc(Position position) {
         super(position);
     }

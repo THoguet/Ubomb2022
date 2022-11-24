@@ -8,6 +8,7 @@ import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.*;
+import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorNextOpened;
@@ -51,17 +52,6 @@ public class Player extends Character implements TakeVisitor {
 		// switch (bonus) {
 
 		// }
-	}
-
-	@Override
-	public void doMove(Direction direction) {
-		// This method is called only if the move is possible, do not check again
-		Position nextPos = direction.nextPosition(getPosition());
-		GameObject next = game.grid().get(nextPos);
-		if (next instanceof Takeable taken) {
-			taken.takenBy(this);
-		}
-		setPosition(nextPos);
 	}
 
 	// Lives
@@ -110,13 +100,32 @@ public class Player extends Character implements TakeVisitor {
 	}
 
 	@Override
+	public void doMove(Direction direction) {
+		// This method is called only if the move is possible, do not check again
+		Position nextPos = direction.nextPosition(getPosition());
+		GameObject next = game.grid().get(nextPos);
+		if (next instanceof Takeable taken) {
+			taken.takenBy(this);
+		}
+		setPosition(nextPos);
+	}
+
+	@Override
 	public final boolean canMove(Direction direction) {
 		Position nextPos = direction.nextPosition(getPosition());
 		Decor tmp = game.grid().get(nextPos);
 		boolean inside = game.grid().inside(nextPos);
 		boolean walkable = true;
-		if (tmp != null)
+		if (tmp != null){
 			walkable = tmp.walkableBy(game.player());
+			if (tmp instanceof Box){
+				if (((Box) tmp).canMove(direction)){
+					((Box) tmp).doMove(direction);
+					return true;
+				}
+				return false;
+			}
+		}
 		return inside && walkable;
 	}
 

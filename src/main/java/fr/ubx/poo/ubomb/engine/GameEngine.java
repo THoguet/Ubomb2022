@@ -8,6 +8,7 @@ import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Monsters;
 import fr.ubx.poo.ubomb.game.Position;
+import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.view.ImageResource;
 import fr.ubx.poo.ubomb.view.Sprite;
@@ -132,7 +133,16 @@ public final class GameEngine {
 	}
 
 	private void checkCollision(long now) {
-		// Check a collision between a monster and the player
+		Position playerPosition = this.player.getPosition();
+		for (Sprite sprite : sprites) {
+			if (sprite.getPosition().equals(playerPosition)) {
+				Monster m = new Monster(playerPosition);
+				if (m.equals(sprite.getGameObject()) && !this.player.isInvisibile(now)) {
+					this.player.setLives(-1);
+					this.player.setInvisibilityStart(now);
+				}
+			}
+		}
 	}
 
 	private void processInput(long now) {

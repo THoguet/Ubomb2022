@@ -20,6 +20,7 @@ public class Player extends Character implements TakeVisitor {
 	private int keys;
 	private int nbBombsMax;
 	private boolean takenPrincess = false;
+	private long invisibilityStart = 0;
 
 	public Player(Position position) {
 		super(position);
@@ -33,6 +34,18 @@ public class Player extends Character implements TakeVisitor {
 	public Player(Game game, Position position) {
 		super(game, position);
 		this.lives = game.configuration().playerLives();
+	}
+
+	public long getInvisibilityStart() {
+		return invisibilityStart;
+	}
+
+	public void setInvisibilityStart(long invisibilityStart) {
+		this.invisibilityStart = invisibilityStart;
+	}
+
+	public boolean isInvisibile(long now) {
+		return (this.invisibilityStart + this.game.configuration().playerInvisibilityTime() * 1000000) - now > 0;
 	}
 
 	@Override

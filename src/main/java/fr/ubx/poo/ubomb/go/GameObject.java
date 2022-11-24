@@ -49,4 +49,11 @@ public abstract class GameObject implements Walkable {
 
 	public void explode() {
 	}
+
+	@Override
+	public boolean equals(Object arg0) {
+		if (arg0 instanceof GameObject arg)
+			return arg.getPosition().equals(this.getPosition());
+		return false;
+	}
 }

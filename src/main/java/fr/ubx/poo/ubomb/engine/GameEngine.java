@@ -45,10 +45,12 @@ public final class GameEngine {
 	private StatusBar statusBar;
 	private Pane layer;
 	private Input input;
+	private int level;
 
 	public GameEngine(Game game, final Stage stage) {
 		this.stage = stage;
 		this.game = game;
+		this.level = game.getLevel();
 		this.player = game.player();
 		initialize();
 		buildAndSetGameLoop();
@@ -82,7 +84,7 @@ public final class GameEngine {
 
 		sprites.add(new SpritePlayer(layer, player));
 
-		// create monsters sprite
+		// create monster sprites
 		for (var monster : game.getMonsters().getMonsters(game.getLevel())) {
 			sprites.add(new SpriteMonster(layer, monster));
 		}
@@ -156,7 +158,7 @@ public final class GameEngine {
 		waitingForKey.setFill(color);
 		StackPane root = new StackPane();
 		root.getChildren().add(waitingForKey);
-		Scene scene = new Scene(root, 400, 200, Color.WHITE);
+		Scene scene = new Scene(root, msg.length() * 50, 200, Color.WHITE);
 		stage.setScene(scene);
 		input = new Input(scene);
 		stage.show();
@@ -176,6 +178,18 @@ public final class GameEngine {
 		} else if (player.tookPrincess()) {
 			gameLoop.stop();
 			showMessage("YOU RESCUED THE PRINCESS", Color.GOLD);
+		}
+		if (this.level != game.getLevel()) {
+			this.level = game.getLevel();
+			gameLoop.stop();
+			sprites.forEach(Sprite::remove);
+			sprites.clear();
+			Position entryLevel = this.game.getLevelEntry();
+			if (entryLevel != null)
+				this.player.setPosition(entryLevel);
+			this.initialize();
+			this.buildAndSetGameLoop();
+			this.start();
 		}
 	}
 

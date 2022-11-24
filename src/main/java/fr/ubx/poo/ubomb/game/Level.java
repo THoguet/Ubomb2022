@@ -1,7 +1,9 @@
 package fr.ubx.poo.ubomb.game;
 
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
-import fr.ubx.poo.ubomb.go.character.Monster;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorNextClosed;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorNextOpened;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorPrevOpened;
 import fr.ubx.poo.ubomb.go.decor.*;
 import fr.ubx.poo.ubomb.launcher.Entity;
 import fr.ubx.poo.ubomb.launcher.MapLevel;
@@ -23,8 +25,8 @@ public class Level implements Grid {
 		this.width = entities.width();
 		this.height = entities.height();
 
-		for (int i = 0; i < height; i++)
-			for (int j = 0; j < width; j++) {
+		for (int i = 0; i < width; i++)
+			for (int j = 0; j < height; j++) {
 				Position position = new Position(i, j);
 				Entity entity = entities.get(i, j);
 				if (entity == null)
@@ -45,15 +47,21 @@ public class Level implements Grid {
 					case Box:
 						elements.put(position, new Box(position));
 						break;
+					case DoorNextClosed:
+						elements.put(position, new DoorNextClosed(position));
+						break;
+					case DoorPrevOpened:
+						elements.put(position, new DoorPrevOpened(position));
+						break;
+					case DoorNextOpened:
+						elements.put(position, new DoorNextOpened(position));
+						break;
 					// TODO
 					case BombRangeInc:
 					case BombNumberDec:
 					case BombNumberInc:
 					case BombRangeDec:
 					case Heart:
-					case DoorNextClosed:
-					case DoorPrevOpened:
-					case DoorNextOpened:
 					case Empty:
 						break;
 					default:

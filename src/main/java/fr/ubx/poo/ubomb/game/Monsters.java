@@ -1,12 +1,9 @@
 package fr.ubx.poo.ubomb.game;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import fr.ubx.poo.ubomb.go.character.Monster;
-import fr.ubx.poo.ubomb.launcher.Entity;
 
 public class Monsters {
 	private final List<List<Monster>> monstersByLevel;
@@ -31,6 +28,8 @@ public class Monsters {
 	}
 
 	public List<Monster> getMonsters(int level) {
+		if (level >= this.monstersByLevel.size())
+			return new ArrayList<>();
 		return this.monstersByLevel.get(level);
 	}
 

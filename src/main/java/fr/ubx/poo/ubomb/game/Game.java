@@ -3,6 +3,8 @@ package fr.ubx.poo.ubomb.game;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.character.Player;
+import fr.ubx.poo.ubomb.go.decor.Decor;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorPrevOpened;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -70,5 +72,26 @@ public class Game {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public void nextLevel() {
+		this.level++;
+	}
+
+	public void prevLevel() {
+		this.level--;
+	}
+
+	public Position getLevelEntry() {
+		for (int i = 0; i < this.grid[this.level].width(); i++) {
+			for (int j = 0; j < this.grid[this.level].height(); j++) {
+				Position p = new Position(i, j);
+				Decor d = this.grid[this.level].get(p);
+				if (d != null && new DoorPrevOpened(p).equals(d)) {
+					return p;
+				}
+			}
+		}
+		return null;
 	}
 }

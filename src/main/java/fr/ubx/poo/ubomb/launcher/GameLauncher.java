@@ -108,8 +108,8 @@ public class GameLauncher {
 			Game gameRet = new Game(config, grids);
 			Monsters monsters = gameRet.getMonsters();
 			for (int level = 0; level < nbLevel; level++) {
-				for (int i = 0; i < monstersPosLeveled[level].height(); i++) {
-					for (int j = 0; j < monstersPosLeveled[level].width(); j++) {
+				for (int i = 0; i < monstersPosLeveled[level].width(); i++) {
+					for (int j = 0; j < monstersPosLeveled[level].height(); j++) {
 						if (monstersPosLeveled[level].get(i, j) == Entity.Monster)
 							monsters.add(new Monster(gameRet, new Position(i, j)), level);
 					}

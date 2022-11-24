@@ -14,4 +14,14 @@ public abstract class Decor extends GameObject {
 		super(position);
 	}
 
+	@Override
+	public boolean equals(Object arg0) {
+		if (!(arg0 instanceof Decor))
+			return false;
+		Decor arg = (Decor) arg0;
+		if (arg.getPosition().equals(this.getPosition()))
+			return true;
+		return false;
+	}
+
 }

@@ -6,11 +6,12 @@ package fr.ubx.poo.ubomb.go.character;
 
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
-import fr.ubx.poo.ubomb.game.Grid;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.*;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorNextOpened;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorPrevOpened;
 
 public class Player extends Character implements TakeVisitor {
 	private int lives;
@@ -64,5 +65,15 @@ public class Player extends Character implements TakeVisitor {
 
 	public boolean tookPrincess() {
 		return this.takenPrincess;
+	}
+
+	@Override
+	public void take(DoorNextOpened door) {
+		this.game.nextLevel();
+	}
+
+	@Override
+	public void take(DoorPrevOpened door) {
+		this.game.prevLevel();
 	}
 }

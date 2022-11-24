@@ -6,10 +6,10 @@ public class MapLevel {
 	private final int width;
 	private final Entity[][] grid;
 
-	public MapLevel(int height, int width) {
+	public MapLevel(int width, int height) {
 		this.width = width;
 		this.height = height;
-		this.grid = new Entity[height][width];
+		this.grid = new Entity[width][height];
 	}
 
 	public int width() {

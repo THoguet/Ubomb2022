@@ -39,7 +39,7 @@ public class Player extends Character implements TakeVisitor {
 	@Override
 	public void take(Key key) {
 		System.out.println("Take the key ...");
-		this.setKeys(1);
+		this.addKeys(1);
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class Player extends Character implements TakeVisitor {
 		return lives;
 	}
 
-	public void setLives(int delta) {
+	public void addLives(int delta) {
 		lives += delta;
 	}
 
@@ -68,7 +68,7 @@ public class Player extends Character implements TakeVisitor {
 		return nbBombsMax;
 	}
 
-	public void setNbBombsMax(int delta) {
+	public void addNbBombsMax(int delta) {
 		nbBombsMax += delta;
 	}
 
@@ -77,7 +77,7 @@ public class Player extends Character implements TakeVisitor {
 		return availableBombs;
 	}
 
-	public void setAvailableBombs(int delta) {
+	public void addAvailableBombs(int delta) {
 		availableBombs += delta;
 	}
 
@@ -86,7 +86,7 @@ public class Player extends Character implements TakeVisitor {
 		return bombRange;
 	}
 
-	public void setBombRange(int delta) {
+	public void addBombRange(int delta) {
 		bombRange += delta;
 	}
 
@@ -95,7 +95,7 @@ public class Player extends Character implements TakeVisitor {
 		return keys;
 	}
 
-	public void setKeys(int delta) {
+	public void addKeys(int delta) {
 		keys += delta;
 	}
 

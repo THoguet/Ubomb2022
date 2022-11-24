@@ -16,10 +16,11 @@ import fr.ubx.poo.ubomb.go.decor.doors.DoorPrevOpened;
 
 public class Player extends Character implements TakeVisitor {
 	private int lives;
+	private int nbBombsMax;
 	private int availableBombs;
 	private int bombRange;
 	private int keys;
-	private int nbBombsMax;
+
 	private boolean takenPrincess = false;
 	private long invisibilityStart = 0;
 

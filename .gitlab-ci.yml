@@ -23,9 +23,19 @@ default:
 
 stages: # List of stages for jobs, and their order of execution
   - build
+  - tests
 
 build-job: # This job runs in the build stage, which runs first.
   stage: build
   script:
     - source  /opt/local/bin/java17.env
     - ./gradlew build
+
+tests-job:
+  needs:
+    - job: build-job
+      artifacts: false
+  stage: tests
+  script:
+    - source  /opt/local/bin/java17.env
+    - ./gradlew test

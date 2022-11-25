@@ -24,10 +24,6 @@ sourceSets {
     }
 }
 
-configurations {
-    TestImplementation.extendsFrom implementation
-    TestRuntimeOnly.extendsFrom runtimeOnly
-}
 sourceCompatibility = '17'
 targetCompatibility = '17'
 

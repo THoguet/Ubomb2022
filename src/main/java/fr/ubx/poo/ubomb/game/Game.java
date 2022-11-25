@@ -7,6 +7,7 @@ import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorNextOpened;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorPrevOpened;
 import fr.ubx.poo.ubomb.go.decor.doors.Doors;
+import fr.ubx.poo.ubomb.launcher.MapException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -77,7 +78,9 @@ public class Game {
 		this.player.setPosition(new Position(this.getLevelDoor(delta > 0)));
 	}
 
-	public Position getLevelDoor(boolean next) {
+	public Position getLevelDoor(boolean next) throws MapException {
+		if (this.level >= this.grid.length)
+			throw new MapException("The level " + this.level + " doesn't exist for this map!");
 		for (int i = 0; i < this.grid[this.level].width(); i++) {
 			for (int j = 0; j < this.grid[this.level].height(); j++) {
 				Position p = new Position(i, j);
@@ -93,6 +96,6 @@ public class Game {
 				}
 			}
 		}
-		throw new RuntimeException("No open door in next level");
+		throw new MapException("No opened door in next level");
 	}
 }

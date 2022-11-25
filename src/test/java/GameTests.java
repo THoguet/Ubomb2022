@@ -12,13 +12,15 @@ import fr.ubx.poo.ubomb.game.Level;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.decor.Decor;
+import fr.ubx.poo.ubomb.go.decor.Tree;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorNextClosed;
 import fr.ubx.poo.ubomb.launcher.GameLauncher;
 import fr.ubx.poo.ubomb.launcher.MapLevel;
 
 public class GameTests {
 
 	@Test
-	void testDecor() {
+	public void testDecor() {
 		MapLevel mapTest = new MapLevelTest();
 		Configuration configuration = new Configuration(new Position(0, 0), 3, 5, 4000, 5, 1000);
 		Level copyL = new Level(mapTest);
@@ -32,7 +34,7 @@ public class GameTests {
 	}
 
 	@Test
-	void testLoader() {
+	public void testLoader() {
 		String filePath = new File("").getAbsolutePath();
 		Game gToTest = GameLauncher.load(filePath + "/src/test/world/test.properties");
 		assertNotNull(gToTest);
@@ -70,5 +72,8 @@ public class GameTests {
 		}
 		assertTrue(exist83 && exist43);
 		assertTrue(gToTest.player().getPosition().equals(gToTest.configuration().playerPosition()));
+		gToTest.addLevel(1);
+		assertTrue(gToTest.grid().get(new Position(7, 0)).equals(new Tree(new Position(7, 0))));
+		assertTrue(gToTest.grid().get(new Position(1, 1)).equals(new DoorNextClosed(new Position(1, 1))));
 	}
 }

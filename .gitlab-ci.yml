@@ -38,4 +38,5 @@ tests-job:
   stage: tests
   script:
     - source  /opt/local/bin/java17.env
-    - ./gradlew test
+    - ./gradlew test --tests "GameTests"
+    - ./gradlew test --tests "PlayerTests"

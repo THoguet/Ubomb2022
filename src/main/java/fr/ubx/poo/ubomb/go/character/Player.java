@@ -24,17 +24,13 @@ public class Player extends Character implements TakeVisitor {
 	private boolean takenPrincess = false;
 	private long invisibilityStart = 0;
 
-	public Player(Position position) {
-		super(position);
+	public Player(Game game, Position position) {
+		super(game, position);
 		this.lives = game.configuration().playerLives();
 		this.nbBombsMax = game.configuration().bombBagCapacity();
 		this.availableBombs = game.configuration().bombBagCapacity();
 		this.bombRange = 1;
 		this.keys = 0;
-	}
-
-	public Player(Game game, Position position) {
-		super(game, position);
 		this.lives = game.configuration().playerLives();
 	}
 

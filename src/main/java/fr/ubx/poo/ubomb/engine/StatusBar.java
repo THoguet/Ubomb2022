@@ -55,6 +55,10 @@ public class StatusBar {
 		root.getChildren().add(hBox);
 	}
 
+	public void updateWidth(int width) {
+		this.hBox.setPrefSize(width, height);
+	}
+
 	private HBox statusGroup(Image kind, Text number) {
 		HBox group = new HBox();
 		ImageView img = new ImageView(kind);

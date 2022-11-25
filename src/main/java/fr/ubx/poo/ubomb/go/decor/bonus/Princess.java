@@ -23,4 +23,9 @@ public class Princess extends Bonus {
 	public void takenBy(Player player) {
 		player.take(this);
 	}
+
+	@Override
+	public boolean equals(Object arg0) {
+		return arg0 instanceof Princess && super.equals(arg0);
+	}
 }

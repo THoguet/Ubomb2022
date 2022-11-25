@@ -18,4 +18,9 @@ public class BombNumberInc extends Bonus {
     public void takenBy(Player player) {
         player.take(this);
     }
+
+    @Override
+    public boolean equals(Object arg0) {
+        return arg0 instanceof BombNumberInc && super.equals(arg0);
+    }
 }

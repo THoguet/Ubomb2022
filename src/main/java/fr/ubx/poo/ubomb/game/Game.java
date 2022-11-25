@@ -72,16 +72,9 @@ public class Game {
 		return level;
 	}
 
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-	public void nextLevel() {
-		this.level++;
-	}
-
-	public void prevLevel() {
-		this.level--;
+	public void addLevel(int delta) {
+		this.level += delta;
+		this.player.setPosition(new Position(this.getLevelDoor(delta > 0)));
 	}
 
 	public Position getLevelDoor(boolean next) {
@@ -89,16 +82,17 @@ public class Game {
 			for (int j = 0; j < this.grid[this.level].height(); j++) {
 				Position p = new Position(i, j);
 				Decor d = this.grid[this.level].get(p);
-				Doors dEqual = null;
-				if (next)
-					dEqual = new DoorPrevOpened(p);
-				else
-					dEqual = new DoorNextOpened(p);
-				if (d != null && dEqual.equals(d)) {
-					return p;
+				if (d != null) {
+					if (next) {
+						if (d instanceof DoorPrevOpened)
+							return p;
+					} else {
+						if (d instanceof DoorNextOpened)
+							return p;
+					}
 				}
 			}
 		}
-		return null;
+		throw new RuntimeException("No open door in next level");
 	}
 }

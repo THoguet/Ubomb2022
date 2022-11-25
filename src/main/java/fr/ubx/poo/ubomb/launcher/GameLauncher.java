@@ -28,50 +28,45 @@ public class GameLauncher {
 		int firstEOL = string.indexOf(EOL);
 		String strWithoutEOL = string.replaceAll(String.valueOf(EOL), "");
 		int width = 0;
-		char last = 0;
 		for (int i = 0; i < firstEOL; i++) {
-			if (Character.isDigit(string.charAt(i))) {
-				if (last == 0) {
-					throw new GridException("Incorrect coding\n");
-				}
-				last = 0;
+			if (Character.isDigit(string.charAt(i)))
 				width += Character.getNumericValue(string.charAt(i)) - 1;
-			} else {
+			else
 				width++;
-				last = string.charAt(i);
-			}
 		}
 		int height = 0;
 		for (char c : string.toCharArray()) {
 			if (c == EOL)
 				height++;
 		}
-		int i = 0;
-		int j = 0;
-		last = 0;
-		MapLevel map = new MapLevel(height, width);
+		int heightCpt = 0;
+		int widthCpt = 0;
+		char last = 0;
+		MapLevel map = new MapLevel(width, height);
 		for (char c : strWithoutEOL.toCharArray()) {
+			if (widthCpt >= width) {
+				widthCpt = 0;
+				heightCpt++;
+			}
 			if (Character.isDigit(c)) {
 				if (last == 0)
 					throw new GridException("Incorrect coding\n");
-				for (int k = Character.getNumericValue(c) - 1; k > 0; k--) {
-					map.set(i++, j, Entity.fromCode(last));
-					if (i >= height) {
-						i = 0;
-						j++;
+				if (!onlyMonster && Entity.fromCode(last) == Entity.Monster) {
+					for (int cpt = 0; cpt < Character.getNumericValue(c) - 1; cpt++) {
+						widthCpt++;
 					}
+					continue;
+				}
+				for (int k = Character.getNumericValue(c) - 1; k > 0; k--) {
+					map.set(widthCpt++, heightCpt, Entity.fromCode(last));
 				}
 			} else {
 				last = c;
 				if (!onlyMonster && Entity.fromCode(c) == Entity.Monster) {
-					i++;
+					widthCpt++;
 					continue;
 				}
-				map.set(i++, j, Entity.fromCode(c));
-				if (i >= height) {
-					i = 0;
-					j++;
-				}
+				map.set(widthCpt++, heightCpt, Entity.fromCode(c));
 			}
 		}
 		return map;

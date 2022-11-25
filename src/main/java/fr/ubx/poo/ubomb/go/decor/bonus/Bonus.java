@@ -24,4 +24,9 @@ public abstract class Bonus extends Decor implements Takeable {
 		remove();
 	}
 
+	@Override
+	public boolean equals(Object arg0) {
+		return arg0 instanceof Bonus && super.equals(arg0);
+	}
+
 }

@@ -56,6 +56,22 @@ public final class GameEngine {
 		buildAndSetGameLoop();
 	}
 
+	private void initSprites() {
+		// Create sprites
+		for (var decor : game.grid().values()) {
+			sprites.add(SpriteFactory.create(layer, decor));
+			decor.setModified(true);
+		}
+
+		sprites.add(new SpritePlayer(layer, player));
+
+		// create monster sprites
+		for (var monster : game.getMonsters().getMonstersByLevel(game.getLevel())) {
+			sprites.add(new SpriteMonster(layer, monster));
+			monster.setModified(true);
+		}
+	}
+
 	private void initialize() {
 		Group root = new Group();
 		layer = new Pane();
@@ -71,24 +87,29 @@ public final class GameEngine {
 		stage.sizeToScene();
 		stage.hide();
 		stage.show();
-
 		input = new Input(scene);
 		root.getChildren().add(layer);
 		statusBar = new StatusBar(root, sceneWidth, sceneHeight, game);
 
-		// Create sprites
-		for (var decor : game.grid().values()) {
-			sprites.add(SpriteFactory.create(layer, decor));
-			decor.setModified(true);
-		}
+		this.initSprites();
+	}
 
-		sprites.add(new SpritePlayer(layer, player));
-
-		// create monster sprites
-		for (var monster : game.getMonsters().getMonstersByLevel(game.getLevel())) {
-			sprites.add(new SpriteMonster(layer, monster));
-			monster.setModified(true);
-		}
+	private void changeLevel() {
+		Group root = new Group();
+		int height = game.grid().height();
+		int width = game.grid().width();
+		int sceneWidth = width * ImageResource.SIZE;
+		int sceneHeight = height * ImageResource.SIZE;
+		Scene scene = new Scene(root, sceneWidth, (double) sceneHeight + StatusBar.height);
+		scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
+		stage.setScene(scene);
+		stage.sizeToScene();
+		input = new Input(scene);
+		root.getChildren().add(layer);
+		statusBar = new StatusBar(root, sceneWidth, sceneHeight, game);
+		sprites.forEach(Sprite::remove);
+		sprites.clear();
+		this.initSprites();
 	}
 
 	void buildAndSetGameLoop() {
@@ -191,18 +212,8 @@ public final class GameEngine {
 		}
 		if (this.level != game.getLevel()) {
 			gameLoop.stop();
-			sprites.forEach(Sprite::remove);
-			sprites.clear();
-			Position newPosPlayer = null;
-			if (game.getLevel() > this.level)
-				newPosPlayer = this.game.getLevelDoor(true);
-			else
-				newPosPlayer = this.game.getLevelDoor(false);
-			if (newPosPlayer != null)
-				this.player.setPosition(newPosPlayer);
 			this.level = game.getLevel();
-			this.initialize();
-			this.buildAndSetGameLoop();
+			this.changeLevel();
 			this.start();
 		}
 	}

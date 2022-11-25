@@ -141,10 +141,10 @@ public class Player extends Character implements TakeVisitor {
 		// This method is called only if the move is possible, do not check again
 		Position nextPos = direction.nextPosition(getPosition());
 		GameObject next = game.grid().get(nextPos);
+		setPosition(nextPos);
 		if (next instanceof Takeable taken) {
 			taken.takenBy(this);
 		}
-		setPosition(nextPos);
 	}
 
 	@Override
@@ -165,12 +165,12 @@ public class Player extends Character implements TakeVisitor {
 
 	@Override
 	public void take(DoorNextOpened door) {
-		this.game.nextLevel();
+		this.game.addLevel(1);
 	}
 
 	@Override
 	public void take(DoorPrevOpened door) {
-		this.game.prevLevel();
+		this.game.addLevel(-1);
 	}
 
 	public boolean canBoxMove(Box box, Direction direction) {

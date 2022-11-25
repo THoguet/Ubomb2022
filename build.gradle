@@ -11,8 +11,23 @@ repositories {
 }
 
 dependencies {
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
+}
+test {
+	useJUnitPlatform()
 }
 
+sourceSets {
+    test {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+configurations {
+    TestImplementation.extendsFrom implementation
+    TestRuntimeOnly.extendsFrom runtimeOnly
+}
 sourceCompatibility = '17'
 targetCompatibility = '17'
 

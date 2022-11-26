@@ -14,9 +14,20 @@ public class Box extends Decor implements Movable {
 		super(game, position);
 	}
 
+	@Override
 	public void doMove(Direction direction) {
 		Position nextPos = direction.nextPosition(getPosition());
 		setPosition(nextPos);
+	}
+
+	@Override
+	public boolean canMove(Direction direction) {
+		Position nextPos = direction.nextPosition(getPosition());
+		int indexMonster = this.game.getMonsters().isThereObject(nextPos, this.game.getLevel());
+		int indexBox = this.game.getBoxes().isThereObject(nextPos, this.game.getLevel());
+		Decor tmp = game.grid().get(nextPos);
+		boolean inside = game.grid().inside(nextPos);
+		return inside && indexMonster == -1 && indexBox == -1 && (tmp == null || tmp.walkableBy(this));
 	}
 
 	@Override
@@ -24,8 +35,4 @@ public class Box extends Decor implements Movable {
 		return arg0 instanceof Box && super.equals(arg0);
 	}
 
-	@Override
-	public boolean canMove(Direction direction) {
-		return true;
-	}
 }

@@ -3,10 +3,12 @@ package fr.ubx.poo.ubomb.launcher;
 import fr.ubx.poo.ubomb.game.Configuration;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Grid;
-import fr.ubx.poo.ubomb.game.Monsters;
+import fr.ubx.poo.ubomb.game.NonStaticObject;
 import fr.ubx.poo.ubomb.game.Level;
 import fr.ubx.poo.ubomb.game.Position;
+import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.character.Monster;
+import fr.ubx.poo.ubomb.go.decor.Box;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -23,7 +25,15 @@ public class GameLauncher {
 		return new Game(configuration, new Level(new MapLevelDefault()));
 	}
 
-	private static MapLevel RLE_Decode(String string, boolean onlyMonster) {
+	/**
+	 * @param string         string to decode
+	 * @param onlyThisEntity if non null, will only return a {@code MapLevel} of
+	 *                       {@code onlyThisEntity}
+	 * @param compression    tells if {@code string} is compressed or not
+	 * @return a {@code MapLevel} of all decoded entity of {@code string} according
+	 *         to {@code onlyThisEntity} and {@code compression}
+	 */
+	private static MapLevel stringDecode(String string, Entity onlyThisEntity, boolean compression) {
 		char EOL = 'x';
 		int firstEOL = string.indexOf(EOL);
 		String strWithoutEOL = string.replaceAll(String.valueOf(EOL), "");
@@ -51,22 +61,19 @@ public class GameLauncher {
 			if (Character.isDigit(c)) {
 				if (last == 0)
 					throw new GridException("Incorrect coding\n");
-				if (!onlyMonster && Entity.fromCode(last) == Entity.Monster) {
-					for (int cpt = 0; cpt < Character.getNumericValue(c) - 1; cpt++) {
-						widthCpt++;
+				if (onlyThisEntity == null || Entity.fromCode(last) == onlyThisEntity)
+					for (int k = Character.getNumericValue(c) - 1; k > 0; k--) {
+						map.set(widthCpt++, heightCpt, Entity.fromCode(last));
 					}
-					continue;
-				}
-				for (int k = Character.getNumericValue(c) - 1; k > 0; k--) {
-					map.set(widthCpt++, heightCpt, Entity.fromCode(last));
-				}
+				else
+					widthCpt += Character.getNumericValue(c) - 1;
+
 			} else {
 				last = c;
-				if (!onlyMonster && Entity.fromCode(c) == Entity.Monster) {
+				if (onlyThisEntity == null || Entity.fromCode(c) == onlyThisEntity)
+					map.set(widthCpt++, heightCpt, Entity.fromCode(c));
+				else
 					widthCpt++;
-					continue;
-				}
-				map.set(widthCpt++, heightCpt, Entity.fromCode(c));
 			}
 		}
 		return map;
@@ -95,18 +102,23 @@ public class GameLauncher {
 					monsterVelocity, monsterInvisibilityTime);
 			// TODO read levelX with RLE and without
 			Grid[] grids = new Grid[nbLevel];
-			MapLevel[] monstersPosLeveled = new MapLevel[nbLevel];
+			MapLevel[] monstersMap = new MapLevel[nbLevel];
+			MapLevel[] boxesMap = new MapLevel[nbLevel];
 			for (int i = 0; i < nbLevel; i++) {
-				grids[i] = new Level(RLE_Decode(levels[i], false));
-				monstersPosLeveled[i] = RLE_Decode(levels[i], true);
+				grids[i] = new Level(stringDecode(levels[i], null, compression));
+				monstersMap[i] = stringDecode(levels[i], Entity.Monster, compression);
+				boxesMap[i] = stringDecode(levels[i], Entity.Box, compression);
 			}
 			Game gameRet = new Game(config, grids);
-			Monsters monsters = gameRet.getMonsters();
+			NonStaticObject<Monster> monsters = gameRet.getMonsters();
+			NonStaticObject<Box> boxes = gameRet.getBoxes();
 			for (int level = 0; level < nbLevel; level++) {
-				for (int i = 0; i < monstersPosLeveled[level].width(); i++) {
-					for (int j = 0; j < monstersPosLeveled[level].height(); j++) {
-						if (monstersPosLeveled[level].get(i, j) == Entity.Monster)
+				for (int i = 0; i < monstersMap[level].width(); i++) {
+					for (int j = 0; j < monstersMap[level].height(); j++) {
+						if (monstersMap[level].get(i, j) != null)
 							monsters.add(new Monster(gameRet, new Position(i, j)), level);
+						if (boxesMap[level].get(i, j) != null)
+							boxes.add(new Box(gameRet, new Position(i, j)), level);
 					}
 				}
 			}

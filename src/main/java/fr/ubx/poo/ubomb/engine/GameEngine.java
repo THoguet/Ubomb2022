@@ -65,11 +65,18 @@ public final class GameEngine {
 
 		sprites.add(new SpritePlayer(layer, player));
 
-		// create monster sprites
-		for (var monster : game.getMonsters().getMonstersByLevel(game.getLevel())) {
+		// create monsters sprites
+		for (var monster : game.getMonsters().getObjects(game.getLevel())) {
 			sprites.add(new SpriteMonster(layer, monster));
 			monster.setModified(true);
 		}
+
+		// create boxes sprites
+		for (var boxes : game.getBoxes().getObjects(game.getLevel())) {
+			sprites.add(SpriteFactory.create(layer, boxes));
+			boxes.setModified(true);
+		}
+
 	}
 
 	private void initialize() {

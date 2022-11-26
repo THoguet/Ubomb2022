@@ -3,10 +3,10 @@ package fr.ubx.poo.ubomb.game;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.character.Player;
+import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorNextOpened;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorPrevOpened;
-import fr.ubx.poo.ubomb.go.decor.doors.Doors;
 import fr.ubx.poo.ubomb.launcher.MapException;
 
 import java.util.LinkedList;
@@ -18,10 +18,11 @@ public class Game {
 	private final Player player;
 	private final Grid[] grid;
 	private int level;
-	private final Monsters leveledMonsters;
+	private final NonStaticObject<Monster> monsters;
+	private final NonStaticObject<Box> boxes;
 
 	public Game(Configuration configuration, Grid grid) {
-		this(configuration, grid, new Monsters());
+		this(configuration, grid, new NonStaticObject<Monster>(), new NonStaticObject<>());
 	}
 
 	public Game(Configuration config, Grid[] grid) {
@@ -29,28 +30,38 @@ public class Game {
 		this.level = 0;
 		this.grid = grid;
 		player = new Player(this, configuration.playerPosition());
-		this.leveledMonsters = new Monsters();
+		this.monsters = new NonStaticObject<Monster>();
+		this.boxes = new NonStaticObject<Box>();
 	}
 
-	public Game(Configuration config, Grid gridToAdd, Monsters monsters) {
+	public Game(Configuration config, Grid gridToAdd, NonStaticObject<Monster> monsters, NonStaticObject<Box> boxes) {
 		this.configuration = config;
 		this.grid = new Grid[1];
 		this.grid[0] = gridToAdd;
 		this.level = 0;
 		player = new Player(this, configuration.playerPosition());
-		this.leveledMonsters = monsters;
+		this.monsters = monsters;
+		this.boxes = boxes;
 	}
 
 	public Configuration configuration() {
 		return configuration;
 	}
 
-	public Monsters getMonsters() {
-		return leveledMonsters;
+	public NonStaticObject<Monster> getMonsters() {
+		return monsters;
 	}
 
-	public List<Monster> getThisLevelMonster() {
-		return leveledMonsters.getMonstersByLevel(this.level);
+	public List<Monster> getThisLevelMonsters() {
+		return monsters.getObjects(this.level);
+	}
+
+	public NonStaticObject<Box> getBoxes() {
+		return this.boxes;
+	}
+
+	public List<Box> getThisLevelBoxes() {
+		return this.boxes.getObjects(this.level);
 	}
 
 	// Returns the player, monsters and bomb at a given position

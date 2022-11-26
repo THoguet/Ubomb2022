@@ -44,9 +44,6 @@ public class Level implements Grid {
 					case Princess:
 						elements.put(position, new Princess(position));
 						break;
-					case Box:
-						elements.put(position, new Box(position));
-						break;
 					case DoorNextClosed:
 						elements.put(position, new DoorNextClosed(position));
 						break;
@@ -71,6 +68,8 @@ public class Level implements Grid {
 					case Heart:
 						elements.put(position, new Heart(position));
 						break;
+					case Box:
+					case Monster:
 					case Empty:
 						break;
 					default:

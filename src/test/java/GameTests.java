@@ -61,10 +61,10 @@ public class GameTests {
 			}
 		}
 		// monsters
-		assertTrue(gToTest.getMonsters().getMonstersByLevel(0).size() == 7);
+		assertTrue(gToTest.getMonsters().getObjects(0).size() == 7);
 		boolean exist83 = false;
 		boolean exist43 = false;
-		for (Monster m : gToTest.getMonsters().getMonstersByLevel(0)) {
+		for (Monster m : gToTest.getMonsters().getObjects(0)) {
 			if (m.getPosition().equals(new Position(8, 3)))
 				exist83 = true;
 			if (m.getPosition().equals(new Position(4, 3)))

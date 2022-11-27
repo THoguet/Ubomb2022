@@ -1,3 +1,5 @@
+package tests;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +12,7 @@ import fr.ubx.poo.ubomb.game.Level;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.launcher.MapException;
+import maps.MapLevelTest;
 
 public class PlayerTests {
 
@@ -25,6 +28,9 @@ public class PlayerTests {
 
 	@Test
 	public void playerMoves() {
+		assertTrue(this.player.getAvailableBombs() == this.player.getNbBombsMax());
+		this.player.update(0);
+		assertTrue(this.player.getAvailableBombs() == this.player.getNbBombsMax());
 		int i = 0, j = 0;
 		assertTrue(this.player.getDirection().equals(Direction.DOWN));
 		this.player.requestMove(Direction.UP);

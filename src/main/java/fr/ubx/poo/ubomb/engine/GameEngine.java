@@ -4,16 +4,21 @@
 
 package fr.ubx.poo.ubomb.engine;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.view.ImageResource;
-import fr.ubx.poo.ubomb.view.Sprite;
-import fr.ubx.poo.ubomb.view.SpriteFactory;
-import fr.ubx.poo.ubomb.view.SpriteMonster;
-import fr.ubx.poo.ubomb.view.SpritePlayer;
+import fr.ubx.poo.ubomb.view.sprite.Sprite;
+import fr.ubx.poo.ubomb.view.sprite.SpriteFactory;
+import fr.ubx.poo.ubomb.view.sprite.SpriteMonster;
+import fr.ubx.poo.ubomb.view.sprite.SpritePlayer;
 import javafx.animation.AnimationTimer;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -28,11 +33,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
 
 public final class GameEngine {
 
@@ -49,6 +49,7 @@ public final class GameEngine {
 
 	public GameEngine(Game game, final Stage stage) {
 		this.stage = stage;
+		stage.setResizable(false);
 		this.game = game;
 		this.level = game.getLevel();
 		this.player = game.player();
@@ -79,10 +80,9 @@ public final class GameEngine {
 
 	}
 
-	private void initialize() {
-		Group root = new Group();
+	private void initGroup() {
 		layer = new Pane();
-
+		Group root = new Group();
 		int height = game.grid().height();
 		int width = game.grid().width();
 		int sceneWidth = width * ImageResource.SIZE;
@@ -90,30 +90,22 @@ public final class GameEngine {
 		Scene scene = new Scene(root, sceneWidth, (double) sceneHeight + StatusBar.height);
 		scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
 		stage.setScene(scene);
-		stage.setResizable(false);
 		stage.sizeToScene();
+		stage.centerOnScreen();
 		stage.hide();
 		stage.show();
 		input = new Input(scene);
 		root.getChildren().add(layer);
 		statusBar = new StatusBar(root, sceneWidth, sceneHeight, game);
+	}
 
+	private void initialize() {
+		this.initGroup();
 		this.initSprites();
 	}
 
 	private void changeLevel() {
-		Group root = new Group();
-		int height = game.grid().height();
-		int width = game.grid().width();
-		int sceneWidth = width * ImageResource.SIZE;
-		int sceneHeight = height * ImageResource.SIZE;
-		Scene scene = new Scene(root, sceneWidth, (double) sceneHeight + StatusBar.height);
-		scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
-		stage.setScene(scene);
-		stage.sizeToScene();
-		input = new Input(scene);
-		root.getChildren().add(layer);
-		statusBar = new StatusBar(root, sceneWidth, sceneHeight, game);
+		this.initGroup();
 		sprites.forEach(Sprite::remove);
 		sprites.clear();
 		this.initSprites();
@@ -134,7 +126,7 @@ public final class GameEngine {
 				// Graphic update
 				cleanupSprites();
 				render();
-				statusBar.update(game);
+				statusBar.update();
 			}
 		};
 	}
@@ -163,8 +155,7 @@ public final class GameEngine {
 		Position playerPosition = this.player.getPosition();
 		for (Sprite sprite : sprites) {
 			if (sprite.getPosition().equals(playerPosition)) {
-				Monster m = new Monster(playerPosition);
-				if (m.equals(sprite.getGameObject()) && !this.player.isInvisible(now)) {
+				if (sprite.getGameObject() instanceof Monster && !this.player.isInvisible(now)) {
 					this.player.addLives(-1);
 					this.player.setInvisibilityStart(now);
 				}
@@ -185,6 +176,8 @@ public final class GameEngine {
 			player.requestMove(Direction.RIGHT);
 		} else if (input.isMoveUp()) {
 			player.requestMove(Direction.UP);
+		} else if (input.isKey()) {
+			player.openDoor();
 		}
 		input.clear();
 	}
@@ -199,6 +192,8 @@ public final class GameEngine {
 		Scene scene = new Scene(root, msg.length() * 50, 200, Color.WHITE);
 		stage.setScene(scene);
 		input = new Input(scene);
+		stage.centerOnScreen();
+		stage.hide();
 		stage.show();
 		new AnimationTimer() {
 			public void handle(long now) {

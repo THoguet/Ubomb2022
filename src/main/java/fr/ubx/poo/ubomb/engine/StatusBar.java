@@ -71,8 +71,8 @@ public class StatusBar {
 		return group;
 	}
 
-	public void update(Game game) {
-		Player player = game.player();
+	public void update() {
+		Player player = this.game.player();
 		lives.setText(String.valueOf(player.getLives()));
 		bombRange.setText(String.valueOf(player.getBombRange()));
 		availableBombs.setText(String.valueOf(player.getAvailableBombs()));

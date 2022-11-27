@@ -1,10 +1,11 @@
+package maps;
+
 import static fr.ubx.poo.ubomb.launcher.Entity.*;
 
-import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.launcher.Entity;
 import fr.ubx.poo.ubomb.launcher.MapLevel;
 
-public class TestPropVerif extends MapLevel {
+public class MapTestLoadFromFile extends MapLevel {
 	private static final Entity[][] level1 = {
 			{ Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Box, Box },
 			{ Stone, Stone, Stone, Stone, Tree, Tree, Tree, Tree, Tree, BombRangeInc, BombRangeDec, Empty },
@@ -16,7 +17,7 @@ public class TestPropVerif extends MapLevel {
 	private static final int WIDTH = level1[0].length;
 	private static final int HEIGHT = level1.length;
 
-	public TestPropVerif() {
+	public MapTestLoadFromFile() {
 		super(WIDTH, HEIGHT);
 		for (int i = 0; i < WIDTH; i++)
 			for (int j = 0; j < HEIGHT; j++)

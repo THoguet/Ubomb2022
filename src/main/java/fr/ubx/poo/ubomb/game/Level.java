@@ -1,9 +1,8 @@
 package fr.ubx.poo.ubomb.game;
 
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
-import fr.ubx.poo.ubomb.go.decor.doors.DoorNextClosed;
-import fr.ubx.poo.ubomb.go.decor.doors.DoorNextOpened;
-import fr.ubx.poo.ubomb.go.decor.doors.DoorPrevOpened;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorNext;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorPrev;
 import fr.ubx.poo.ubomb.go.decor.*;
 import fr.ubx.poo.ubomb.launcher.Entity;
 import fr.ubx.poo.ubomb.launcher.MapLevel;
@@ -22,13 +21,13 @@ public class Level implements Grid {
 
 	public Level(MapLevel entities) {
 		this.entities = entities;
-		this.width = entities.width();
-		this.height = entities.height();
+		this.width = this.entities.width();
+		this.height = this.entities.height();
 
 		for (int i = 0; i < width; i++)
 			for (int j = 0; j < height; j++) {
 				Position position = new Position(i, j);
-				Entity entity = entities.get(i, j);
+				Entity entity = this.entities.get(i, j);
 				if (entity == null)
 					continue;
 				switch (entity) {
@@ -45,13 +44,13 @@ public class Level implements Grid {
 						elements.put(position, new Princess(position));
 						break;
 					case DoorNextClosed:
-						elements.put(position, new DoorNextClosed(position));
+						elements.put(position, new DoorNext(position, false));
 						break;
 					case DoorPrevOpened:
-						elements.put(position, new DoorPrevOpened(position));
+						elements.put(position, new DoorPrev(position));
 						break;
 					case DoorNextOpened:
-						elements.put(position, new DoorNextOpened(position));
+						elements.put(position, new DoorNext(position, true));
 						break;
 					case BombRangeInc:
 						elements.put(position, new BombRangeInc(position));

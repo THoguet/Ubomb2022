@@ -2,7 +2,7 @@
  * Copyright (c) 2020. Laurent Réveillère
  */
 
-package fr.ubx.poo.ubomb.view;
+package fr.ubx.poo.ubomb.view.sprite;
 
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.GameObject;

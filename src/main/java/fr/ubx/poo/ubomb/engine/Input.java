@@ -42,8 +42,8 @@ public final class Input {
 
 	public Input(Scene scene) {
 		this.scene = scene;
-		scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
-		scene.addEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
+		this.scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
+		this.scene.addEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
 	}
 
 	public void clear() {

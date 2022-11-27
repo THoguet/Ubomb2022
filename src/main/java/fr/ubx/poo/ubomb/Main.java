@@ -1,6 +1,6 @@
 package fr.ubx.poo.ubomb;
 
-import fr.ubx.poo.ubomb.view.*;
+import fr.ubx.poo.ubomb.view.GameLauncherView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

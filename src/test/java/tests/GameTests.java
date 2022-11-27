@@ -1,3 +1,5 @@
+package tests;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,9 +15,11 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.Tree;
-import fr.ubx.poo.ubomb.go.decor.doors.DoorNextClosed;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorNext;
 import fr.ubx.poo.ubomb.launcher.GameLauncher;
 import fr.ubx.poo.ubomb.launcher.MapLevel;
+import maps.MapLevelTest;
+import maps.MapTestLoadFromFile;
 
 public class GameTests {
 
@@ -38,7 +42,7 @@ public class GameTests {
 		String filePath = new File("").getAbsolutePath();
 		Game gToTest = GameLauncher.load(filePath + "/src/test/world/test.properties");
 		assertNotNull(gToTest);
-		MapLevel mapTest = new TestPropVerif();
+		MapLevel mapTest = new MapTestLoadFromFile();
 		Configuration configuration = new Configuration(new Position(0, 0), 3, 30, 4000, 5, 10000);
 		Level level = new Level(mapTest);
 		Game gVerif = new Game(configuration, level);
@@ -74,6 +78,6 @@ public class GameTests {
 		assertTrue(gToTest.player().getPosition().equals(gToTest.configuration().playerPosition()));
 		gToTest.addLevel(1);
 		assertTrue(gToTest.grid().get(new Position(7, 0)).equals(new Tree(new Position(7, 0))));
-		assertTrue(gToTest.grid().get(new Position(1, 1)).equals(new DoorNextClosed(new Position(1, 1))));
+		assertTrue(gToTest.grid().get(new Position(1, 1)).equals(new DoorNext(new Position(1, 1), false)));
 	}
 }

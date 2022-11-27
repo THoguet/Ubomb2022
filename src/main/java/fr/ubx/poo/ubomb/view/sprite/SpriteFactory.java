@@ -2,14 +2,14 @@
  * Copyright (c) 2020. Laurent Réveillère
  */
 
-package fr.ubx.poo.ubomb.view;
+package fr.ubx.poo.ubomb.view.sprite;
 
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
-import fr.ubx.poo.ubomb.go.decor.doors.DoorNextClosed;
-import fr.ubx.poo.ubomb.go.decor.doors.DoorNextOpened;
-import fr.ubx.poo.ubomb.go.decor.doors.DoorPrevOpened;
+import fr.ubx.poo.ubomb.go.decor.doors.Door;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorNext;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorPrev;
 import fr.ubx.poo.ubomb.go.decor.*;
 import javafx.scene.layout.Pane;
 
@@ -42,10 +42,10 @@ public final class SpriteFactory {
 			return new Sprite(layer, BONUS_BOMB_NB_DEC.getImage(), gameObject);
 		if (gameObject instanceof Heart)
 			return new Sprite(layer, HEART.getImage(), gameObject);
-		if (gameObject instanceof DoorNextClosed)
-			return new Sprite(layer, DOOR_CLOSED.getImage(), gameObject);
-		if (gameObject instanceof DoorNextOpened || gameObject instanceof DoorPrevOpened)
-			return new Sprite(layer, DOOR_OPENED.getImage(), gameObject);
+		if (gameObject instanceof DoorNext dn && !dn.isOpen())
+			return new SpriteDoor(layer, dn);
+		if (gameObject instanceof DoorNext || gameObject instanceof DoorPrev)
+			return new SpriteDoor(layer, (Door) gameObject);
 		throw new RuntimeException("Unsupported sprite for decor " + gameObject);
 	}
 }

@@ -1,3 +1,5 @@
+package maps;
+
 import static fr.ubx.poo.ubomb.launcher.Entity.*;
 
 import fr.ubx.poo.ubomb.launcher.Entity;

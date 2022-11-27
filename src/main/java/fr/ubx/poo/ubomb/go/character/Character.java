@@ -9,6 +9,7 @@ import fr.ubx.poo.ubomb.go.Movable;
 public abstract class Character extends GameObject implements Movable {
 	private Direction direction;
 	private boolean moveRequested = false;
+	private long invisibilityStart = 0;
 
 	public Character(Position position) {
 		super(position);
@@ -26,6 +27,14 @@ public abstract class Character extends GameObject implements Movable {
 			setModified(true);
 		}
 		moveRequested = true;
+	}
+
+	public long getInvisibilityStart() {
+		return invisibilityStart;
+	}
+
+	public void setInvisibilityStart(long invisibilityStart) {
+		this.invisibilityStart = invisibilityStart;
 	}
 
 	@Override

@@ -8,7 +8,6 @@ import fr.ubx.poo.ubomb.game.Position;
 //fusion Monster + Player (movable)
 //princess reste seule car =/= movable
 public class Monster extends Character {
-	private long invisibilityStart = 0;
 
 	public Monster(Position position) {
 		super(position);

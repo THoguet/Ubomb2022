@@ -2,9 +2,10 @@
  * Copyright (c) 2020. Laurent Réveillère
  */
 
-package fr.ubx.poo.ubomb.view;
+package fr.ubx.poo.ubomb.view.sprite;
 
 import fr.ubx.poo.ubomb.go.character.Player;
+import fr.ubx.poo.ubomb.view.ImageResourceFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 

@@ -6,14 +6,10 @@ import fr.ubx.poo.ubomb.game.Grid;
 import fr.ubx.poo.ubomb.game.NonStaticObject;
 import fr.ubx.poo.ubomb.game.Level;
 import fr.ubx.poo.ubomb.game.Position;
-import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.decor.Box;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Properties;
 
 public class GameLauncher {

@@ -1,8 +1,8 @@
 package fr.ubx.poo.ubomb.go;
 
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
-import fr.ubx.poo.ubomb.go.decor.doors.DoorNextOpened;
-import fr.ubx.poo.ubomb.go.decor.doors.DoorPrevOpened;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorNext;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorPrev;
 
 // Double dispatch visitor pattern
 public interface TakeVisitor {
@@ -11,9 +11,9 @@ public interface TakeVisitor {
 
 	void take(Princess p);
 
-	void take(DoorNextOpened door);
+	void take(DoorNext door);
 
-	void take(DoorPrevOpened door);
+	void take(DoorPrev door);
 
 	void take(BombNumberInc BNI);
 

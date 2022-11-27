@@ -5,8 +5,8 @@ import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Decor;
-import fr.ubx.poo.ubomb.go.decor.doors.DoorNextOpened;
-import fr.ubx.poo.ubomb.go.decor.doors.DoorPrevOpened;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorNext;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorPrev;
 import fr.ubx.poo.ubomb.launcher.MapException;
 
 import java.util.LinkedList;
@@ -98,10 +98,10 @@ public class Game {
 				Decor d = this.grid[this.level].get(p);
 				if (d != null) {
 					if (next) {
-						if (d instanceof DoorPrevOpened)
+						if (d instanceof DoorPrev)
 							return p;
 					} else {
-						if (d instanceof DoorNextOpened)
+						if (d instanceof DoorNext)
 							return p;
 					}
 				}

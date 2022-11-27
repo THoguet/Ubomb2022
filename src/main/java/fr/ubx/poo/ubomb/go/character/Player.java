@@ -11,8 +11,8 @@ import fr.ubx.poo.ubomb.go.*;
 import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
-import fr.ubx.poo.ubomb.go.decor.doors.DoorNextOpened;
-import fr.ubx.poo.ubomb.go.decor.doors.DoorPrevOpened;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorNext;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorPrev;
 
 public class Player extends Character implements TakeVisitor {
 	private int lives;
@@ -22,7 +22,6 @@ public class Player extends Character implements TakeVisitor {
 	private int keys;
 
 	private boolean takenPrincess = false;
-	private long invisibilityStart = 0;
 
 	public Player(Game game, Position position) {
 		super(game, position);
@@ -34,16 +33,8 @@ public class Player extends Character implements TakeVisitor {
 		this.lives = game.configuration().playerLives();
 	}
 
-	public long getInvisibilityStart() {
-		return invisibilityStart;
-	}
-
-	public void setInvisibilityStart(long invisibilityStart) {
-		this.invisibilityStart = invisibilityStart;
-	}
-
 	public boolean isInvisible(long now) {
-		return (this.invisibilityStart + this.game.configuration().playerInvisibilityTime() * 1000000) - now > 0;
+		return (this.getInvisibilityStart() + this.game.configuration().playerInvisibilityTime() * 1000000) - now > 0;
 	}
 
 	@Override
@@ -169,12 +160,13 @@ public class Player extends Character implements TakeVisitor {
 	}
 
 	@Override
-	public void take(DoorNextOpened door) {
-		this.game.addLevel(1);
+	public void take(DoorNext door) {
+		if (door.isOpen())
+			this.game.addLevel(1);
 	}
 
 	@Override
-	public void take(DoorPrevOpened door) {
+	public void take(DoorPrev door) {
 		this.game.addLevel(-1);
 	}
 
@@ -184,5 +176,16 @@ public class Player extends Character implements TakeVisitor {
 			return false;
 		Decor tmp = game.grid().get(nextPos);
 		return tmp != null && tmp.walkableBy(box);
+	}
+
+	public void openDoor() {
+		if (this.keys <= 0)
+			return;
+		Position nextPos = this.getDirection().nextPosition(this.getPosition());
+		if (this.game.grid().get(nextPos) instanceof DoorNext dn && !dn.isOpen()) {
+			dn.setOpen(true);
+			dn.setModified(true);
+			this.keys--;
+		}
 	}
 }

@@ -3,10 +3,10 @@ package fr.ubx.poo.ubomb.go.decor.doors;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Player;
 
-public class DoorNextOpened extends Doors {
+public class DoorPrev extends Door {
 
-	public DoorNextOpened(Position position) {
-		super(position);
+	public DoorPrev(Position position) {
+		super(position, true);
 	}
 
 	@Override
@@ -16,7 +16,6 @@ public class DoorNextOpened extends Doors {
 
 	@Override
 	public boolean equals(Object arg0) {
-		return arg0 instanceof DoorNextOpened && super.equals(arg0);
+		return arg0 instanceof DoorPrev && super.equals(arg0);
 	}
-
 }

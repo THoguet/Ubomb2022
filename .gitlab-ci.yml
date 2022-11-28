@@ -64,3 +64,11 @@ DoorTests-job:
   script:
     - source  /opt/local/bin/java17.env
     - ./gradlew test --tests "DoorTests"
+MonsterTests-job:
+  needs:
+    - job: build-job
+      artifacts: false
+  stage: tests
+  script:
+    - source  /opt/local/bin/java17.env
+    - ./gradlew test --tests "MonsterTests"

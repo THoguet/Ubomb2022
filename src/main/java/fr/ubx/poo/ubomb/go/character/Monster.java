@@ -8,7 +8,6 @@ import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.Takeable;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 
-//TODO
 //fusion Monster + Player (movable)
 //princess reste seule car =/= movable
 public class Monster extends Character {

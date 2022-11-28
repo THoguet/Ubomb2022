@@ -113,9 +113,23 @@ public class PlayerTests {
 		this.player.requestMove(Direction.DOWN);
 		this.player.update(0);
 		assertTrue(this.player.getDirection().equals(Direction.DOWN));
-		assertTrue(this.player.getPosition().equals(new Position(i, ++j)));
+		assertTrue(this.player.getPosition().equals(new Position(i, j)));
+		assertTrue(this.player.game.getLevel() == 0);
+		this.player.requestMove(Direction.LEFT);
+		this.player.update(0);
+		assertTrue(this.player.getDirection().equals(Direction.LEFT));
+		assertTrue(this.player.getPosition().equals(new Position(--i, j)));
 		assertTrue(this.player.game.getLevel() == 0);
 		this.player.requestMove(Direction.DOWN);
+		this.player.update(0);
+		assertTrue(this.player.getDirection().equals(Direction.DOWN));
+		assertTrue(this.player.getPosition().equals(new Position(i, ++j)));
+		this.player.requestMove(Direction.DOWN);
+		this.player.update(0);
+		assertTrue(this.player.getDirection().equals(Direction.DOWN));
+		assertTrue(this.player.getPosition().equals(new Position(i, ++j)));
+		assertTrue(this.player.game.getLevel() == 0);
+		this.player.requestMove(Direction.RIGHT);
 		try {
 			this.player.update(0);
 		} catch (MapException e) {

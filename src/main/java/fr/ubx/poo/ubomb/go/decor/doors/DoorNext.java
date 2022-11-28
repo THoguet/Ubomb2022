@@ -10,6 +10,11 @@ public class DoorNext extends Door {
 	}
 
 	@Override
+	public boolean walkableBy(Player player) {
+		return this.isOpen();
+	}
+
+	@Override
 	public void takenBy(Player player) {
 		player.take(this);
 	}

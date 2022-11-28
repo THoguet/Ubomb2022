@@ -203,6 +203,13 @@ public final class GameEngine {
 	}
 
 	private void update(long now) {
+		for (Monster m : this.game.getMonsters().getObjects()) {
+			if (m.getLastMove() == 0
+					|| m.getLastMove() + this.game.configuration().monsterVelocity() * 1000000000L < now) {
+				m.requestMove(Direction.random());
+				m.update(now);
+			}
+		}
 		player.update(now);
 		// End Game
 		if (player.getLives() <= 0) {

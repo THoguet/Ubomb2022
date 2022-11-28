@@ -112,7 +112,7 @@ public class GameLauncher {
 				for (int i = 0; i < monstersMap[level].width(); i++) {
 					for (int j = 0; j < monstersMap[level].height(); j++) {
 						if (monstersMap[level].get(i, j) != null)
-							monsters.add(new Monster(gameRet, new Position(i, j)), level);
+							monsters.add(new Monster(gameRet, new Position(i, j), level), level);
 						if (boxesMap[level].get(i, j) != null)
 							boxes.add(new Box(gameRet, new Position(i, j)), level);
 					}

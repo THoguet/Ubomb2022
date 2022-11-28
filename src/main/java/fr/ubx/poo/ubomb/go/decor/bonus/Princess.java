@@ -1,6 +1,7 @@
 package fr.ubx.poo.ubomb.go.decor.bonus;
 
 import fr.ubx.poo.ubomb.game.Position;
+import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.character.Player;
 
 public class Princess extends Bonus {
@@ -12,6 +13,11 @@ public class Princess extends Bonus {
 	@Override
 	public boolean walkableBy(Player player) {
 		return true;
+	}
+
+	@Override
+	public boolean walkableBy(Monster monster) {
+		return false;
 	}
 
 	@Override

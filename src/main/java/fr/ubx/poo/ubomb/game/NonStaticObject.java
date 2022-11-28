@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import fr.ubx.poo.ubomb.go.GameObject;
 
@@ -30,6 +31,14 @@ public class NonStaticObject<T extends GameObject> {
 		if (!this.objectsByLevel.containsKey(Integer.valueOf(level)))
 			this.objectsByLevel.put(Integer.valueOf(level), new ArrayList<>());
 		return this.objectsByLevel.get(Integer.valueOf(level));
+	}
+
+	public List<T> getObjects() {
+		List<T> ret = new ArrayList<>();
+		for (Entry<Integer, List<T>> t : this.objectsByLevel.entrySet()) {
+			ret.addAll(t.getValue());
+		}
+		return ret;
 	}
 
 }

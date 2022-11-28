@@ -76,6 +76,10 @@ public class Game {
 		return this.grid[this.level];
 	}
 
+	public Grid grid(int level) {
+		return this.grid[level];
+	}
+
 	public Player player() {
 		return this.player;
 	}

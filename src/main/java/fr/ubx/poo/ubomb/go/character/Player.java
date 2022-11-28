@@ -136,22 +136,21 @@ public class Player extends Character implements TakeVisitor {
 		if (indexBox != -1)
 			this.game.getBoxes().getObjects(this.game.getLevel()).get(indexBox).doMove(direction);
 		setPosition(nextPos);
-		if (next instanceof Takeable taken) {
+		if (next instanceof Takeable taken)
 			taken.takenBy(this);
-		}
 	}
 
 	@Override
-	public final boolean canMove(Direction direction) {
-		Position nextPos = direction.nextPosition(getPosition());
-		Decor tmp = game.grid().get(nextPos);
+	public boolean canMove(Direction direction) {
+		Position nextPos = direction.nextPosition(this.getPosition());
 		if (!game.grid().inside(nextPos))
 			return false;
 		int indexBox = this.game.getBoxes().isThereObject(nextPos, this.game.getLevel());
 		if (indexBox != -1)
 			return this.game.getBoxes().getObjects(this.game.getLevel()).get(indexBox).canMove(direction);
+		Decor tmp = game.grid().get(nextPos);
 		if (tmp != null)
-			return tmp.walkableBy(game.player());
+			return tmp.walkableBy(this);
 		return true;
 	}
 

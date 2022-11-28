@@ -1,4 +1,4 @@
-package tests;
+package fr.ubx.poo.ubomb.go;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -13,8 +13,8 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorNext;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorPrev;
+import fr.ubx.poo.ubomb.go.maps.MapLevelTest;
 import fr.ubx.poo.ubomb.launcher.MapException;
-import maps.MapLevelTest;
 
 public class DoorTests {
 

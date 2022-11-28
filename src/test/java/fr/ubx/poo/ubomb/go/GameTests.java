@@ -1,4 +1,4 @@
-package tests;
+package fr.ubx.poo.ubomb.go;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -16,10 +16,10 @@ import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.Tree;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorNext;
+import fr.ubx.poo.ubomb.go.maps.MapLevelTest;
+import fr.ubx.poo.ubomb.go.maps.MapTestLoadFromFile;
 import fr.ubx.poo.ubomb.launcher.GameLauncher;
 import fr.ubx.poo.ubomb.launcher.MapLevel;
-import maps.MapLevelTest;
-import maps.MapTestLoadFromFile;
 
 public class GameTests {
 
@@ -40,7 +40,7 @@ public class GameTests {
 	@Test
 	public void testLoader() {
 		String filePath = new File("").getAbsolutePath();
-		Game gToTest = GameLauncher.load(filePath + "/src/test/world/test.properties");
+		Game gToTest = GameLauncher.load(filePath + "/world/test.properties");
 		assertNotNull(gToTest);
 		MapLevel mapTest = new MapTestLoadFromFile();
 		Configuration configuration = new Configuration(new Position(0, 0), 3, 30, 4000, 5, 10000);

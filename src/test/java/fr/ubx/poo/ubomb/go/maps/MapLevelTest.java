@@ -1,4 +1,4 @@
-package maps;
+package fr.ubx.poo.ubomb.go.maps;
 
 import static fr.ubx.poo.ubomb.launcher.Entity.*;
 

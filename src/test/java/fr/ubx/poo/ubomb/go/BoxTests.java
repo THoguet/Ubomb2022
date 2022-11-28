@@ -1,4 +1,4 @@
-package tests;
+package fr.ubx.poo.ubomb.go;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,7 +15,7 @@ import fr.ubx.poo.ubomb.game.NonStaticObject;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.decor.Box;
-import maps.MapLevelTest;
+import fr.ubx.poo.ubomb.go.maps.MapLevelTest;
 
 public class BoxTests {
 

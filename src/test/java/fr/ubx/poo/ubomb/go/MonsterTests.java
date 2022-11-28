@@ -1,4 +1,4 @@
-package tests;
+package fr.ubx.poo.ubomb.go;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -19,7 +19,7 @@ import fr.ubx.poo.ubomb.go.decor.bonus.BombRangeDec;
 import fr.ubx.poo.ubomb.go.decor.bonus.BombRangeInc;
 import fr.ubx.poo.ubomb.go.decor.bonus.Heart;
 import fr.ubx.poo.ubomb.go.decor.bonus.Key;
-import maps.MapLevelTest;
+import fr.ubx.poo.ubomb.go.maps.MapLevelTest;
 
 public class MonsterTests {
 

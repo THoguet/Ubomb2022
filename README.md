@@ -130,15 +130,15 @@ boolean compression = Boolean.parseBoolean(integerProperty(config, "compression"
 
 Comme vous pouvez le constater, certaines clés peuvent avoir des valeurs par défaut si elles ne sont pas présentes dans le fichier. Nous utiliserons les valeurs par défaut suivantes :
 
-| Clé                     | Valeur par défaut |
-| ----------------------- | ----------------- |
-| levels                  | 1                 |
-| compression             | false             |
-| bombBagCapacity         | 3                 |
-| playerLives             | 5                 |
-| playerInvisibilityTime  | 4000              |
-| monsterVelocity         | 5                 |
-| monsterInvisibilityTime | 1000              |
+| Clé                      | Valeur par défaut |
+| ------------------------ | ----------------- |
+| levels                   | 1                 |
+| compression              | false             |
+| bombBagCapacity          | 3                 |
+| playerLives              | 5                 |
+| playerInvincibilityTime  | 4000              |
+| monsterVelocity          | 5                 |
+| monsterInvincibilityTime | 1000              |
 
 La clé `player` est obligatoire et sa valeur représente les coordonnées (`i` et `j`) du joueur sur le premier niveau. Le fichier contient des clés de la forme `levelX` ou `X` représente un numéro de niveau compris entre 1 et la valeur de la clé `levels`. La valeur associée à un niveau est une chaine de caractère encodant le niveau avec ou sans compression (RLE) en fonction de la variable `compression`.
 Modifier le code dans la classe `GameLauncher` pour que le monde du jeu puisse être chargé depuis un fichier.

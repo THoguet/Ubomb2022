@@ -10,12 +10,12 @@ import fr.ubx.poo.ubomb.go.Movable;
 public abstract class Character extends GameObject implements Movable {
 	private Direction direction;
 	private boolean moveRequested = false;
-	private final Timer invisibilityTimer;
+	private final Timer invincibilityTimer;
 
 	public Character(Game game, Position position, Timer timer) {
 		super(game, position);
 		this.direction = Direction.DOWN;
-		this.invisibilityTimer = timer;
+		this.invincibilityTimer = timer;
 	}
 
 	public void requestMove(Direction direction) {
@@ -27,7 +27,7 @@ public abstract class Character extends GameObject implements Movable {
 	}
 
 	public Timer getInvisibilityTimer() {
-		return invisibilityTimer;
+		return invincibilityTimer;
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public abstract class Character extends GameObject implements Movable {
 	}
 
 	public void update(long now) {
-		this.invisibilityTimer.update(now);
+		this.invincibilityTimer.update(now);
 		if (moveRequested && canMove(direction)) {
 			doMove(direction);
 		}

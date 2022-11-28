@@ -1,5 +1,6 @@
 package fr.ubx.poo.ubomb.go.character;
 
+import fr.ubx.poo.ubomb.engine.Timer;
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
@@ -10,16 +11,12 @@ import fr.ubx.poo.ubomb.go.decor.Decor;
 public abstract class Character extends GameObject implements Movable {
 	private Direction direction;
 	private boolean moveRequested = false;
-	private long invisibilityStart = 0;
+	private final Timer invisibilityTimer;
 
-	public Character(Position position) {
-		super(position);
-		this.direction = Direction.DOWN;
-	}
-
-	public Character(Game game, Position position) {
+	public Character(Game game, Position position, Timer timer) {
 		super(game, position);
 		this.direction = Direction.DOWN;
+		this.invisibilityTimer = timer;
 	}
 
 	public void requestMove(Direction direction) {
@@ -30,12 +27,8 @@ public abstract class Character extends GameObject implements Movable {
 		moveRequested = true;
 	}
 
-	public long getInvisibilityStart() {
-		return invisibilityStart;
-	}
-
-	public void setInvisibilityStart(long invisibilityStart) {
-		this.invisibilityStart = invisibilityStart;
+	public Timer getInvisibilityTimer() {
+		return invisibilityTimer;
 	}
 
 	@Override
@@ -50,6 +43,7 @@ public abstract class Character extends GameObject implements Movable {
 	}
 
 	public void update(long now) {
+		this.invisibilityTimer.update(now);
 		if (moveRequested && canMove(direction)) {
 			doMove(direction);
 		}

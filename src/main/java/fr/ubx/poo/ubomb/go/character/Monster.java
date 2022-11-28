@@ -1,5 +1,6 @@
 package fr.ubx.poo.ubomb.go.character;
 
+import fr.ubx.poo.ubomb.engine.Timer;
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
@@ -11,14 +12,13 @@ import fr.ubx.poo.ubomb.go.decor.Decor;
 //fusion Monster + Player (movable)
 //princess reste seule car =/= movable
 public class Monster extends Character {
-
-	private long lastMove = 0;
-	private long now = 0;
+	private final Timer velocityTimer;
 	private final int level;
 
 	public Monster(Game game, Position position, int level) {
-		super(game, position);
+		super(game, position, new Timer(game.configuration().monsterInvisibilityTime()));
 		this.level = level;
+		this.velocityTimer = new Timer(game.configuration().monsterVelocity() * 1000);
 	}
 
 	@Override
@@ -39,6 +39,12 @@ public class Monster extends Character {
 	}
 
 	@Override
+	public void requestMove(Direction direction) {
+		super.requestMove(direction);
+		this.velocityTimer.start();
+	}
+
+	@Override
 	public void doMove(Direction direction) {
 		// This method is called only if the move is possible, do not check again
 		Position nextPos = direction.nextPosition(getPosition());
@@ -46,7 +52,10 @@ public class Monster extends Character {
 		setPosition(nextPos);
 		if (next instanceof Takeable taken)
 			taken.takenBy(this);
-		this.lastMove = now;
+	}
+
+	public Timer getVelocityTimer() {
+		return velocityTimer;
 	}
 
 	@Override
@@ -54,13 +63,9 @@ public class Monster extends Character {
 		return arg0 instanceof Monster && super.equals(arg0);
 	}
 
-	public long getLastMove() {
-		return lastMove;
-	}
-
 	@Override
 	public void update(long now) {
-		this.now = now;
+		this.velocityTimer.update(now);
 		super.update(now);
 	}
 }

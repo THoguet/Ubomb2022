@@ -4,6 +4,7 @@
 
 package fr.ubx.poo.ubomb.go.character;
 
+import fr.ubx.poo.ubomb.engine.Timer;
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
@@ -24,7 +25,7 @@ public class Player extends Character implements TakeVisitor {
 	private boolean takenPrincess = false;
 
 	public Player(Game game, Position position) {
-		super(game, position);
+		super(game, position, new Timer(game.configuration().playerInvisibilityTime()));
 		this.lives = game.configuration().playerLives();
 		this.nbBombsMax = game.configuration().bombBagCapacity();
 		this.availableBombs = game.configuration().bombBagCapacity();
@@ -34,7 +35,7 @@ public class Player extends Character implements TakeVisitor {
 	}
 
 	public boolean isInvisible(long now) {
-		return (this.getInvisibilityStart() + this.game.configuration().playerInvisibilityTime() * 1000000) - now > 0;
+		return this.getInvisibilityTimer().isRunning();
 	}
 
 	@Override

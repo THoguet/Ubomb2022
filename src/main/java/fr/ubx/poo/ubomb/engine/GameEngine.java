@@ -157,7 +157,7 @@ public final class GameEngine {
 			if (sprite.getPosition().equals(playerPosition)) {
 				if (sprite.getGameObject() instanceof Monster && !this.player.isInvisible(now)) {
 					this.player.addLives(-1);
-					this.player.setInvisibilityStart(now);
+					this.player.getInvisibilityTimer().start();
 				}
 			}
 		}
@@ -204,11 +204,9 @@ public final class GameEngine {
 
 	private void update(long now) {
 		for (Monster m : this.game.getMonsters().getObjects()) {
-			if (m.getLastMove() == 0
-					|| m.getLastMove() + this.game.configuration().monsterVelocity() * 1000000000L < now) {
+			if (!m.getVelocityTimer().isRunning())
 				m.requestMove(Direction.random());
-				m.update(now);
-			}
+			m.update(now);
 		}
 		player.update(now);
 		// End Game

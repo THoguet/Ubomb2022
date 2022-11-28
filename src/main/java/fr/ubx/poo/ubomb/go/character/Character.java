@@ -26,7 +26,7 @@ public abstract class Character extends GameObject implements Movable {
 		moveRequested = true;
 	}
 
-	public Timer getInvisibilityTimer() {
+	public Timer getInvincibilityTimer() {
 		return invincibilityTimer;
 	}
 

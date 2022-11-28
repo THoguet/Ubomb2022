@@ -35,7 +35,7 @@ public class Player extends Character implements TakeVisitor {
 	}
 
 	public boolean isInvisible(long now) {
-		return this.getInvisibilityTimer().isRunning();
+		return this.getInvincibilityTimer().isRunning();
 	}
 
 	@Override

@@ -16,7 +16,6 @@ import fr.ubx.poo.ubomb.go.decor.doors.DoorNext;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorPrev;
 
 public class Player extends Character implements TakeVisitor {
-	private int lives;
 	private int nbBombsMax;
 	private int availableBombs;
 	private int bombRange;
@@ -25,13 +24,12 @@ public class Player extends Character implements TakeVisitor {
 	private boolean takenPrincess = false;
 
 	public Player(Game game, Position position) {
-		super(game, position, new Timer(game.configuration().playerInvisibilityTime()));
-		this.lives = game.configuration().playerLives();
+		super(game, position, game.configuration().playerLives(),
+				new Timer(game.configuration().playerInvisibilityTime()));
 		this.nbBombsMax = game.configuration().bombBagCapacity();
 		this.availableBombs = game.configuration().bombBagCapacity();
 		this.bombRange = 1;
 		this.keys = 0;
-		this.lives = game.configuration().playerLives();
 	}
 
 	public boolean isInvisible(long now) {
@@ -81,15 +79,6 @@ public class Player extends Character implements TakeVisitor {
 		System.out.println("healing");
 		this.addLives(1);
 		heart.remove();
-	}
-
-	// Lives
-	public int getLives() {
-		return lives;
-	}
-
-	public void addLives(int delta) {
-		lives += delta;
 	}
 
 	// nbBombsMax

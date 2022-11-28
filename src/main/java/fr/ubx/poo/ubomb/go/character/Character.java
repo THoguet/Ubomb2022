@@ -11,11 +11,13 @@ public abstract class Character extends GameObject implements Movable {
 	private Direction direction;
 	private boolean moveRequested = false;
 	private final Timer invincibilityTimer;
+	private int lives;
 
-	public Character(Game game, Position position, Timer timer) {
+	public Character(Game game, Position position, int lives, Timer timer) {
 		super(game, position);
 		this.direction = Direction.DOWN;
 		this.invincibilityTimer = timer;
+		this.lives = lives;
 	}
 
 	public void requestMove(Direction direction) {
@@ -28,6 +30,15 @@ public abstract class Character extends GameObject implements Movable {
 
 	public Timer getInvincibilityTimer() {
 		return invincibilityTimer;
+	}
+
+	// Lives
+	public int getLives() {
+		return lives;
+	}
+
+	public void addLives(int delta) {
+		lives += delta;
 	}
 
 	@Override

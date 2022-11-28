@@ -16,9 +16,9 @@ public class Monster extends Character {
 	private final int level;
 
 	public Monster(Game game, Position position, int level) {
-		super(game, position, new Timer(game.configuration().monsterInvisibilityTime()));
+		super(game, position, 1 + level / 2, new Timer(game.configuration().monsterInvisibilityTime()));
 		this.level = level;
-		this.velocityTimer = new Timer(game.configuration().monsterVelocity() * 1000);
+		this.velocityTimer = new Timer(game.configuration().monsterVelocity() * 1000 / (level + 1));
 	}
 
 	@Override

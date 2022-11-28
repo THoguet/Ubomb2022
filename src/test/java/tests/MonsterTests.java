@@ -12,7 +12,6 @@ import fr.ubx.poo.ubomb.game.Level;
 import fr.ubx.poo.ubomb.game.NonStaticObject;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Monster;
-import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.bonus.BombNumberDec;
 import fr.ubx.poo.ubomb.go.decor.bonus.BombNumberInc;

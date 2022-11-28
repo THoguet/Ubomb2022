@@ -6,7 +6,6 @@ import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.Movable;
-import fr.ubx.poo.ubomb.go.decor.Decor;
 
 public abstract class Character extends GameObject implements Movable {
 	private Direction direction;

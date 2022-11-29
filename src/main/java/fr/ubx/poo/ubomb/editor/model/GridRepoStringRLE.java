@@ -6,14 +6,9 @@ import java.io.Writer;
 import java.util.Properties;
 
 import fr.ubx.poo.ubomb.launcher.Entity;
-import fr.ubx.poo.ubomb.view.ImageResource;
 
 public class GridRepoStringRLE implements GridRepo, GridRepoIO {
 	final char EOL = 'x';
-
-	private static int toDigit(char c) {
-		return c - 48;
-	}
 
 	@Override
 	public Grid load(String string) {

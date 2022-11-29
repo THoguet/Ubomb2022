@@ -1,12 +1,9 @@
 package fr.ubx.poo.ubomb.editor.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import fr.ubx.poo.ubomb.launcher.Entity;
 import fr.ubx.poo.ubomb.view.ImageResource;
 import fr.ubx.poo.ubomb.editor.view.PickerView;
 import fr.ubx.poo.ubomb.editor.view.Tile;
+import fr.ubx.poo.ubomb.game.Position;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.effect.ColorAdjust;
@@ -50,6 +47,15 @@ public class GridView extends BorderPane {
         });
         tile.setOnMouseExited(e -> {
             tile.setEffect(null);
+        });
+        tile.setOnContextMenuRequested(e -> {
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem itemMark = new MenuItem("Get coordinates");
+            contextMenu.getItems().addAll(itemMark);
+            itemMark.setOnAction(e2 -> {
+                System.out.println(new Position(i, j));
+            });
+            contextMenu.show(tile, e.getScreenX(), e.getScreenY());
         });
     }
 

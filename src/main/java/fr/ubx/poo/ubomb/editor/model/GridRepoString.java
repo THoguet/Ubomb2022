@@ -1,7 +1,6 @@
 package fr.ubx.poo.ubomb.editor.model;
 
 import fr.ubx.poo.ubomb.launcher.Entity;
-import fr.ubx.poo.ubomb.view.ImageResource;
 
 public class GridRepoString implements GridRepo {
 	final char EOL = 'x';

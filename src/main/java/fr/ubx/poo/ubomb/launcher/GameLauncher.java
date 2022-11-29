@@ -91,8 +91,17 @@ public class GameLauncher {
 			long playerInvisibilityTime = Long.parseLong(properties.getProperty("playerInvisibilityTime", "4000"));
 			long monsterInvisibilityTime = Long.parseLong(properties.getProperty("monsterInvisibilityTime", "1000"));
 			int bombBagCapacity = Integer.parseInt(properties.getProperty("bombBagCapacity", "3"));
-			Position playerPos = new Position(Character.getNumericValue(properties.getProperty("player").charAt(0)),
-					Character.getNumericValue(properties.getProperty("player").charAt(2)));
+			String[] parts = properties.getProperty("player").replaceAll("\\s+", "").split("x");
+			Position playerPos;
+			if (parts.length != 2)
+				return null;
+			try {
+				int x = Integer.parseInt(parts[0]);
+				int y = Integer.parseInt(parts[1]);
+				playerPos = new Position(x, y);
+			} catch (NumberFormatException numberFormatException) {
+				return null;
+			}
 			in.close();
 			Configuration config = new Configuration(playerPos, bombBagCapacity, playerLives, playerInvisibilityTime,
 					monsterVelocity, monsterInvisibilityTime);

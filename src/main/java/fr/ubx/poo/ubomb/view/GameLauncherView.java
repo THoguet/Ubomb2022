@@ -1,8 +1,10 @@
 package fr.ubx.poo.ubomb.view;
 
+import fr.ubx.poo.ubomb.editor.view.EditorView;
 import fr.ubx.poo.ubomb.engine.GameEngine;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.launcher.GameLauncher;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
@@ -22,10 +24,10 @@ public class GameLauncherView extends BorderPane {
 		Menu menuFile = new Menu("File");
 		MenuItem loadItem = new MenuItem("Load from file ...");
 		MenuItem defaultItem = new MenuItem("Load default configuration");
+		MenuItem mapEditor = new MenuItem("Map Editor");
 		MenuItem exitItem = new MenuItem("Exit");
 		exitItem.setAccelerator(KeyCombination.keyCombination("Ctrl+Q"));
-		menuFile.getItems().addAll(
-				loadItem, defaultItem, new SeparatorMenuItem(),
+		menuFile.getItems().addAll(loadItem, defaultItem, new SeparatorMenuItem(), mapEditor, new SeparatorMenuItem(),
 				exitItem);
 
 		menuBar.getMenus().addAll(menuFile);
@@ -53,6 +55,15 @@ public class GameLauncherView extends BorderPane {
 			Game game = GameLauncher.load();
 			GameEngine engine = new GameEngine(game, stage);
 			engine.start();
+		});
+
+		mapEditor.setOnAction(e -> {
+			EditorView editorView = new EditorView(stage);
+			Scene editorScene = new Scene(editorView);
+			stage.setTitle("Map editor");
+			stage.setScene(editorScene);
+			stage.sizeToScene();
+			stage.show();
 		});
 
 		// Exit

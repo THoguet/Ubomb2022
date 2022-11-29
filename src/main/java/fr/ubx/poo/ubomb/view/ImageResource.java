@@ -1,5 +1,6 @@
 package fr.ubx.poo.ubomb.view;
 
+import fr.ubx.poo.ubomb.launcher.Entity;
 import javafx.scene.image.Image;
 
 public enum ImageResource {
@@ -83,6 +84,43 @@ public enum ImageResource {
 
 	public Image getImage() {
 		return image;
+	}
+
+	public static Image get(Entity e) {
+		switch (e) {
+			case Empty:
+				return ImageResource.GROUND.getImage();
+			case Box:
+				return ImageResource.BOX.getImage();
+			case Stone:
+				return ImageResource.STONE.getImage();
+			case Tree:
+				return ImageResource.TREE.getImage();
+			case BombRangeInc:
+				return ImageResource.BONUS_BOMB_RANGE_INC.getImage();
+			case BombRangeDec:
+				return ImageResource.BONUS_BOMB_NB_DEC.getImage();
+			case BombNumberInc:
+				return ImageResource.BONUS_BOMB_NB_INC.getImage();
+			case BombNumberDec:
+				return ImageResource.BONUS_BOMB_NB_DEC.getImage();
+			case Heart:
+				return ImageResource.HEART.getImage();
+			case Key:
+				return ImageResource.KEY.getImage();
+			case DoorPrevOpened:
+				return ImageResource.DOOR_OPENED_MINUS.getImage();
+			case DoorNextOpened:
+				return ImageResource.DOOR_OPENED_PLUS.getImage();
+			case DoorNextClosed:
+				return ImageResource.DOOR_CLOSED_PLUS.getImage();
+			case Monster:
+				return ImageResource.MONSTER_DOWN.getImage();
+			case Princess:
+				return ImageResource.PRINCESS.getImage();
+			default:
+				return null;
+		}
 	}
 
 }

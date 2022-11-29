@@ -152,10 +152,10 @@ public final class GameEngine {
 	}
 
 	private void checkCollision(long now) {
-		Position playerPosition = this.player.getPosition();
-		for (Sprite sprite : sprites) {
-			if (sprite.getPosition().equals(playerPosition)) {
-				if (sprite.getGameObject() instanceof Monster && !this.player.isInvisible(now)) {
+		if (!this.player.isInvisible(now)) {
+			Position playerPosition = this.player.getPosition();
+			for (Monster m : this.game.getMonsters().getObjects(this.game.getLevel())) {
+				if (m.getPosition().equals(playerPosition)) {
 					this.player.addLives(-1);
 					this.player.getInvincibilityTimer().start();
 				}

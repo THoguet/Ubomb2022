@@ -1,12 +1,14 @@
 package fr.ubx.poo.ubomb.game;
 
 import fr.ubx.poo.ubomb.go.GameObject;
+import fr.ubx.poo.ubomb.go.character.Character;
 import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.decor.Box;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorNext;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorPrev;
+import fr.ubx.poo.ubomb.graph.Graph;
 import fr.ubx.poo.ubomb.launcher.MapException;
 
 import java.util.LinkedList;
@@ -17,9 +19,10 @@ public class Game {
 	private final Configuration configuration;
 	private final Player player;
 	private final Grid[] grid;
-	private int level;
 	private final NonStaticObject<Monster> monsters;
 	private final NonStaticObject<Box> boxes;
+	private int level;
+	private final int levels;
 
 	public Game(Configuration configuration, Grid grid) {
 		this(configuration, grid, new NonStaticObject<Monster>(), new NonStaticObject<>());
@@ -28,6 +31,7 @@ public class Game {
 	public Game(Configuration config, Grid[] grid) {
 		this.configuration = config;
 		this.level = 0;
+		this.levels = grid.length - 1;
 		this.grid = grid;
 		player = new Player(this, configuration.playerPosition());
 		this.monsters = new NonStaticObject<Monster>();
@@ -39,6 +43,7 @@ public class Game {
 		this.grid = new Grid[1];
 		this.grid[0] = gridToAdd;
 		this.level = 0;
+		this.levels = 0;
 		player = new Player(this, configuration.playerPosition());
 		this.monsters = monsters;
 		this.boxes = boxes;
@@ -93,6 +98,10 @@ public class Game {
 		this.player.setPosition(new Position(this.getLevelDoor(delta > 0)));
 	}
 
+	public int getLevels() {
+		return levels;
+	}
+
 	public Position getLevelDoor(boolean next) throws MapException {
 		if (this.level >= this.grid.length)
 			throw new MapException("The level " + this.level + " doesn't exist for this map!");
@@ -112,5 +121,34 @@ public class Game {
 			}
 		}
 		throw new MapException("No opened door in next level");
+	}
+
+	public boolean isEmpty(Position p, Character c) {
+		Decor d = this.grid().get(p);
+		return ((d == null || d.walkableBy(c))
+				&& this.getBoxes().isThereObject(new Position(p), this.level) == -1);
+	}
+
+	public Graph<Position> getGraph(Character walkableCharacter) {
+		Graph<Position> g = new Graph<>();
+		for (int i = 0; i < this.grid().height(); i++) {
+			for (int j = 0; j < this.grid().width(); j++) {
+				if (isEmpty(new Position(i, j), walkableCharacter))
+					g.addNode(new Position(i, j));
+			}
+		}
+		for (int i = 0; i < this.grid().height(); i++) {
+			for (int j = 0; j < this.grid().width(); j++) {
+				if (isEmpty(new Position(i, j), walkableCharacter)) {
+					for (Direction direction : Direction.values()) {
+						Position nextDir = direction.nextPosition(new Position(i, j));
+						if (isEmpty(nextDir, walkableCharacter)) {
+							g.getNode(new Position(i, j)).addEdge(g.getNode(new Position(nextDir)));
+						}
+					}
+				}
+			}
+		}
+		return g;
 	}
 }

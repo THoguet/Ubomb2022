@@ -1,5 +1,6 @@
 package fr.ubx.poo.ubomb.go.character;
 
+import fr.ubx.poo.ubomb.editor.model.Grid;
 import fr.ubx.poo.ubomb.engine.Timer;
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
@@ -7,9 +8,9 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.Takeable;
 import fr.ubx.poo.ubomb.go.decor.Decor;
+import fr.ubx.poo.ubomb.graph.Graph;
+import fr.ubx.poo.ubomb.pathfinder.PathFinder;
 
-//fusion Monster + Player (movable)
-//princess reste seule car =/= movable
 public class Monster extends Character {
 	private final Timer velocityTimer;
 	private final int level;
@@ -66,5 +67,18 @@ public class Monster extends Character {
 	public void update(long now) {
 		this.velocityTimer.update(now);
 		super.update(now);
+	}
+
+	public Direction getNextDirection() {
+		if (this.game != null && this.game.getLevels() == this.level) {
+			Graph<Position> g = this.game.getGraph(this);
+			Position next = new PathFinder(g.getNode(getPosition()), this.game.player().getPosition()).findPath()
+					.get(0);
+			for (Direction direction : Direction.values()) {
+				if (direction.nextPosition(getPosition()).equals(next))
+					return direction;
+			}
+		}
+		return Direction.random();
 	}
 }

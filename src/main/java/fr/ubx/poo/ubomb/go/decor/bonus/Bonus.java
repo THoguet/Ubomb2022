@@ -17,12 +17,12 @@ public abstract class Bonus extends Decor implements Takeable {
 
 	@Override
 	public boolean walkableBy(Player player) {
-		return true;
+		return player.walk(this);
 	}
 
 	@Override
 	public boolean walkableBy(Monster monster) {
-		return true;
+		return monster.walk(this);
 	}
 
 	@Override

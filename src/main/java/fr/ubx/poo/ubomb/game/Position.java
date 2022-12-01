@@ -6,4 +6,7 @@ public record Position(int x, int y) {
 		this(position.x, position.y);
 	}
 
+	public double distance(Position cible) {
+		return Math.sqrt((this.x - cible.x) * (this.x - cible.x) + (this.y - cible.y) * (this.y - cible.y));
+	}
 }

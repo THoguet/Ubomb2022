@@ -11,16 +11,6 @@ public class Princess extends Bonus {
 	}
 
 	@Override
-	public boolean walkableBy(Player player) {
-		return true;
-	}
-
-	@Override
-	public boolean walkableBy(Monster monster) {
-		return false;
-	}
-
-	@Override
 	public void explode() {
 		remove();
 	}

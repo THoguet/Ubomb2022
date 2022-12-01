@@ -6,8 +6,9 @@ import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.Movable;
+import fr.ubx.poo.ubomb.go.WalkVisitor;
 
-public abstract class Character extends GameObject implements Movable {
+public abstract class Character extends GameObject implements Movable, WalkVisitor {
 	private Direction direction;
 	private boolean moveRequested = false;
 	private final Timer invincibilityTimer;

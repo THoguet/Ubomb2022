@@ -205,7 +205,7 @@ public final class GameEngine {
 	private void update(long now) {
 		for (Monster m : this.game.getMonsters().getObjects()) {
 			if (!m.getVelocityTimer().isRunning())
-				m.requestMove(Direction.random());
+				m.requestMove(m.getNextDirection());
 			m.update(now);
 		}
 		player.update(now);

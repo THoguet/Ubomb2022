@@ -1,5 +1,7 @@
 package fr.ubx.poo.ubomb.go.character;
 
+import java.util.List;
+
 import fr.ubx.poo.ubomb.editor.model.Grid;
 import fr.ubx.poo.ubomb.engine.Timer;
 import fr.ubx.poo.ubomb.game.Direction;
@@ -70,10 +72,13 @@ public class Monster extends Character {
 	}
 
 	public Direction getNextDirection() {
-		if (this.game != null && this.game.getLevels() == this.level) {
+		if (this.game != null && this.game.getLevels() == this.level && this.level == this.game.getLevel()) {
 			Graph<Position> g = this.game.getGraph(this);
-			Position next = new PathFinder(g.getNode(getPosition()), this.game.player().getPosition()).findPath()
-					.get(0);
+			List<Position> path = new PathFinder(g.getNode(getPosition()),
+					this.game.player().getPosition()).findPath();
+			if (path == null)
+				return Direction.random();
+			Position next = path.get(0);
 			for (Direction direction : Direction.values()) {
 				if (direction.nextPosition(getPosition()).equals(next))
 					return direction;

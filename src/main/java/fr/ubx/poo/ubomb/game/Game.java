@@ -125,8 +125,8 @@ public class Game {
 
 	public boolean isEmpty(Position p, Character c) {
 		Decor d = this.grid().get(p);
-		return ((d == null || d.walkableBy(c))
-				&& this.getBoxes().isThereObject(new Position(p), this.level) == -1);
+		return ((p.y() >= 0 && p.y() < this.grid().height() && p.x() >= 0 && p.x() < this.grid().width())
+				&& (d == null || d.walkableBy(c)) && this.getBoxes().isThereObject(new Position(p), this.level) == -1);
 	}
 
 	public Graph<Position> getGraph(Character walkableCharacter) {

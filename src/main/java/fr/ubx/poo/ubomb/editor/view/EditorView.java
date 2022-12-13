@@ -188,7 +188,7 @@ public class EditorView extends BorderPane {
 		});
 
 		// Export to file
-		exportItemF.setOnAction(e -> {
+		exportItemF.setOnAction(e <-> {
 			FileChooser fc = new FileChooser();
 			fc.setInitialFileName(new SimpleDateFormat("dd_MM_yyyy_HH_mm").format(new Date()) + ".properties");
 			File file = fc.showSaveDialog(stage);

@@ -14,7 +14,7 @@ public enum Direction {
 		}
 
 		@Override
-		public Direction opposit() {
+		public Direction opposite() {
 			return Direction.DOWN;
 		}
 	},
@@ -25,7 +25,7 @@ public enum Direction {
 		}
 
 		@Override
-		public Direction opposit() {
+		public Direction opposite() {
 			return Direction.LEFT;
 		}
 	},
@@ -36,7 +36,7 @@ public enum Direction {
 		}
 
 		@Override
-		public Direction opposit() {
+		public Direction opposite() {
 			return Direction.UP;
 		}
 	},
@@ -47,7 +47,7 @@ public enum Direction {
 		}
 
 		@Override
-		public Direction opposit() {
+		public Direction opposite() {
 			return Direction.RIGHT;
 		}
 	},
@@ -62,7 +62,7 @@ public enum Direction {
 
 	public abstract Position nextPosition(Position pos, int delta);
 
-	public abstract Direction opposit();
+	public abstract Direction opposite();
 
 	public Position nextPosition(Position pos) {
 		return nextPosition(pos, 1);

@@ -46,7 +46,7 @@ public class DoorTests {
 		this.player.openDoor();
 		verifDoors(false, true);
 		for (Direction d : Direction.values()) {
-			Position positionPlayer = d.opposit().nextPosition(this.doorNextClosed.getPosition());
+			Position positionPlayer = d.opposite().nextPosition(this.doorNextClosed.getPosition());
 			this.player.setPosition(positionPlayer);
 			this.player.requestMove(d);
 			this.player.openDoor();
@@ -60,7 +60,7 @@ public class DoorTests {
 		this.player.setPosition(this.doorNextClosed.getPosition());
 		this.player.openDoor();
 		verifDoors(false, true);
-		this.player.setPosition(this.player.getDirection().opposit().nextPosition(this.doorNextClosed.getPosition()));
+		this.player.setPosition(this.player.getDirection().opposite().nextPosition(this.doorNextClosed.getPosition()));
 		this.player.addKeys(1);
 		this.player.openDoor();
 		this.player.requestMove(this.player.getDirection());

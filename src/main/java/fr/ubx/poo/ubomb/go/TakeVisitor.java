@@ -7,21 +7,30 @@ import fr.ubx.poo.ubomb.go.decor.doors.DoorPrev;
 // Double dispatch visitor pattern
 public interface TakeVisitor {
 	// Key
-	void take(Key key);
+	default void take(Key key) {
+	}
 
-	void take(Princess p);
+	default void take(Princess p) {
+	}
 
-	void take(DoorNext door);
+	default void take(DoorNext door) {
+	}
 
-	void take(DoorPrev door);
+	default void take(DoorPrev door) {
+	}
 
-	void take(BombNumberInc BNI);
+	default void take(BombNumberInc BNI) {
+	}
 
-	void take(BombNumberDec BND);
+	default void take(BombNumberDec BND) {
+	}
 
-	void take(BombRangeInc BRI);
+	default void take(BombRangeInc BRI) {
+	}
 
-	void take(BombRangeDec BRD);
+	default void take(BombRangeDec BRD) {
+	}
 
-	void take(Heart heart);
+	default void take(Heart heart) {
+	}
 }

@@ -2,7 +2,6 @@ package fr.ubx.poo.ubomb.go.character;
 
 import java.util.List;
 
-import fr.ubx.poo.ubomb.editor.model.Grid;
 import fr.ubx.poo.ubomb.engine.Timer;
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
@@ -10,10 +9,13 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.Takeable;
 import fr.ubx.poo.ubomb.go.decor.Decor;
+import fr.ubx.poo.ubomb.go.decor.bonus.Princess;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorNext;
+import fr.ubx.poo.ubomb.go.decor.doors.DoorPrev;
 import fr.ubx.poo.ubomb.graph.Graph;
 import fr.ubx.poo.ubomb.pathfinder.PathFinder;
 
-public class Monster extends Character {
+public class Monster extends Chara {
 	private final Timer velocityTimer;
 	private final int level;
 
@@ -36,8 +38,22 @@ public class Monster extends Character {
 			return this.game.getMonsters().getObjects(this.level).get(indexMonster).walkableBy(this);
 		Decor tmp = game.grid(this.level).get(nextPos);
 		if (tmp != null)
-			return tmp.walkableBy(this);
+			return tmp.walkableBy((Chara) this);
 		return true;
+	}
+
+	public boolean walk(Princess p) {
+		return false;
+	}
+
+	@Override
+	public boolean walk(DoorNext d) {
+		return false;
+	}
+
+	@Override
+	public boolean walk(DoorPrev d) {
+		return false;
 	}
 
 	@Override
@@ -53,7 +69,7 @@ public class Monster extends Character {
 		GameObject next = game.grid().get(nextPos);
 		setPosition(nextPos);
 		if (next instanceof Takeable taken)
-			taken.takenBy(this);
+			taken.takenBy((Chara) this);
 	}
 
 	public Timer getVelocityTimer() {
@@ -74,14 +90,13 @@ public class Monster extends Character {
 	public Direction getNextDirection() {
 		if (this.game != null && this.game.getLevels() == this.level && this.level == this.game.getLevel()) {
 			Graph<Position> g = this.game.getGraph(this);
-			List<Position> path = new PathFinder(g.getNode(getPosition()),
-					this.game.player().getPosition()).findPath();
-			if (path == null)
-				return Direction.random();
-			Position next = path.get(0);
-			for (Direction direction : Direction.values()) {
-				if (direction.nextPosition(getPosition()).equals(next))
-					return direction;
+			List<Position> path = new PathFinder(g.getNode(getPosition()), this.game.player().getPosition()).findPath();
+			if (path != null && path.size() > 1) {
+				Position next = path.get(path.size() - 2);
+				for (Direction direction : Direction.values()) {
+					if (direction.nextPosition(getPosition()).equals(next))
+						return direction;
+				}
 			}
 		}
 		return Direction.random();

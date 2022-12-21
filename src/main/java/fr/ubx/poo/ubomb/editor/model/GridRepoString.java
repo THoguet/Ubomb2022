@@ -41,8 +41,8 @@ public class GridRepoString implements GridRepo {
 	@Override
 	public String export(Grid grid) {
 		StringBuilder s = new StringBuilder();
-		for (int i = 0; i < grid.getHeight(); i++) {
-			for (int j = 0; j < grid.getWidth(); j++) {
+		for (int i = 0; i < grid.getWidth(); i++) {
+			for (int j = 0; j < grid.getHeight(); j++) {
 				s.append(grid.get(i, j).getCode());
 			}
 			s.append(this.EOL);

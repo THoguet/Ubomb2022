@@ -15,7 +15,7 @@ import fr.ubx.poo.ubomb.go.decor.bonus.*;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorNext;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorPrev;
 
-public class Player extends Character implements TakeVisitor {
+public class Player extends Chara {
 	private int nbBombsMax;
 	private int availableBombs;
 	private int bombRange;
@@ -127,7 +127,7 @@ public class Player extends Character implements TakeVisitor {
 			this.game.getBoxes().getObjects(this.game.getLevel()).get(indexBox).doMove(direction);
 		setPosition(nextPos);
 		if (next instanceof Takeable taken)
-			taken.takenBy(this);
+			taken.takenBy((Chara) this);
 	}
 
 	@Override
@@ -138,9 +138,9 @@ public class Player extends Character implements TakeVisitor {
 		int indexBox = this.game.getBoxes().isThereObject(nextPos, this.game.getLevel());
 		if (indexBox != -1)
 			return this.game.getBoxes().getObjects(this.game.getLevel()).get(indexBox).canMove(direction);
-		Decor tmp = game.grid().get(nextPos);
-		if (tmp != null)
-			return tmp.walkableBy(this);
+		Decor d = game.grid().get(nextPos);
+		if (d != null)
+			return d.walkableBy((Chara) this);
 		return true;
 	}
 
@@ -176,5 +176,50 @@ public class Player extends Character implements TakeVisitor {
 			dn.setModified(true);
 			this.keys--;
 		}
+	}
+
+	@Override
+	public boolean walk(DoorPrev d) {
+		return true;
+	}
+
+	@Override
+	public boolean walk(DoorNext d) {
+		return d.isOpen();
+	}
+
+	@Override
+	public boolean walk(BombNumberDec b) {
+		return true;
+	}
+
+	@Override
+	public boolean walk(BombNumberInc b) {
+		return true;
+	}
+
+	@Override
+	public boolean walk(BombRangeDec b) {
+		return true;
+	}
+
+	@Override
+	public boolean walk(BombRangeInc b) {
+		return true;
+	}
+
+	@Override
+	public boolean walk(Heart b) {
+		return true;
+	}
+
+	@Override
+	public boolean walk(Key b) {
+		return true;
+	}
+
+	@Override
+	public boolean walk(Princess b) {
+		return true;
 	}
 }

@@ -4,6 +4,7 @@
 
 package fr.ubx.poo.ubomb.go.decor;
 
+import fr.ubx.poo.ubomb.go.character.Chara;
 import fr.ubx.poo.ubomb.game.Position;
 
 public class Stone extends Decor {
@@ -15,4 +16,10 @@ public class Stone extends Decor {
 	public boolean equals(Object arg0) {
 		return arg0 instanceof Stone && super.equals(arg0);
 	}
+
+	@Override
+	public boolean walkableBy(Chara c) {
+		return c.walk(this);
+	}
+
 }

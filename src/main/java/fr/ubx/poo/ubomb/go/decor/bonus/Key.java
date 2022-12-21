@@ -6,6 +6,7 @@ package fr.ubx.poo.ubomb.go.decor.bonus;
 
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Player;
+import fr.ubx.poo.ubomb.go.character.Chara;
 
 public class Key extends Bonus {
 	public Key(Position position) {
@@ -17,8 +18,13 @@ public class Key extends Bonus {
 	}
 
 	@Override
-	public void takenBy(Player player) {
-		player.take(this);
+	public void takenBy(Chara c) {
+		c.take(this);
+	}
+
+	@Override
+	public boolean walkableBy(Chara c) {
+		return c.walk(this);
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package fr.ubx.poo.ubomb.go.decor.doors;
 
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.Takeable;
-import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 
 public abstract class Door extends Decor implements Takeable {
@@ -12,11 +11,6 @@ public abstract class Door extends Decor implements Takeable {
 	public Door(Position p, boolean open) {
 		super(p);
 		this.open = open;
-	}
-
-	@Override
-	public boolean walkableBy(Player player) {
-		return true;
 	}
 
 	@Override

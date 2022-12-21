@@ -1,7 +1,7 @@
 package fr.ubx.poo.ubomb.game;
 
 import fr.ubx.poo.ubomb.go.GameObject;
-import fr.ubx.poo.ubomb.go.character.Character;
+import fr.ubx.poo.ubomb.go.character.Chara;
 import fr.ubx.poo.ubomb.go.character.Monster;
 import fr.ubx.poo.ubomb.go.character.Player;
 import fr.ubx.poo.ubomb.go.decor.Box;
@@ -123,22 +123,25 @@ public class Game {
 		throw new MapException("No opened door in next level");
 	}
 
-	public boolean isEmpty(Position p, Character c) {
+	public boolean isEmpty(Position p, Chara c) {
+		if (p.y() < 0 || p.y() >= this.grid().height() || p.x() < 0 || p.x() >= this.grid().width())
+			return false;
 		Decor d = this.grid().get(p);
-		return ((p.y() >= 0 && p.y() < this.grid().height() && p.x() >= 0 && p.x() < this.grid().width())
-				&& (d == null || d.walkableBy(c)) && this.getBoxes().isThereObject(new Position(p), this.level) == -1);
+		int indexBox = this.getBoxes().isThereObject(p, this.level);
+		return ((d == null || d.walkableBy(c))
+				&& (indexBox == -1 || this.getBoxes().getObjects(this.level).get(indexBox).walkableBy(c)));
 	}
 
-	public Graph<Position> getGraph(Character walkableCharacter) {
+	public Graph<Position> getGraph(Chara walkableCharacter) {
 		Graph<Position> g = new Graph<>();
-		for (int i = 0; i < this.grid().height(); i++) {
-			for (int j = 0; j < this.grid().width(); j++) {
+		for (int i = 0; i < this.grid().width(); i++) {
+			for (int j = 0; j < this.grid().height(); j++) {
 				if (isEmpty(new Position(i, j), walkableCharacter))
 					g.addNode(new Position(i, j));
 			}
 		}
-		for (int i = 0; i < this.grid().height(); i++) {
-			for (int j = 0; j < this.grid().width(); j++) {
+		for (int i = 0; i < this.grid().width(); i++) {
+			for (int j = 0; j < this.grid().height(); j++) {
 				if (isEmpty(new Position(i, j), walkableCharacter)) {
 					for (Direction direction : Direction.values()) {
 						Position nextDir = direction.nextPosition(new Position(i, j));

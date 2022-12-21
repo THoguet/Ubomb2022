@@ -6,15 +6,16 @@ import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.Movable;
+import fr.ubx.poo.ubomb.go.TakeVisitor;
 import fr.ubx.poo.ubomb.go.WalkVisitor;
 
-public abstract class Character extends GameObject implements Movable, WalkVisitor {
+public abstract class Chara extends GameObject implements Movable, WalkVisitor, TakeVisitor {
 	private Direction direction;
 	private boolean moveRequested = false;
 	private final Timer invincibilityTimer;
 	private int lives;
 
-	public Character(Game game, Position position, int lives, Timer timer) {
+	public Chara(Game game, Position position, int lives, Timer timer) {
 		super(game, position);
 		this.direction = Direction.DOWN;
 		this.invincibilityTimer = timer;
@@ -61,8 +62,4 @@ public abstract class Character extends GameObject implements Movable, WalkVisit
 		moveRequested = false;
 	}
 
-	@Override
-	public void explode() {
-		// TODO
-	}
 }

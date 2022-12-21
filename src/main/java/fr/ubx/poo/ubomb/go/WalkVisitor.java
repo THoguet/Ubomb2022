@@ -1,18 +1,15 @@
 package fr.ubx.poo.ubomb.go;
 
 import fr.ubx.poo.ubomb.go.decor.Box;
-import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.Stone;
 import fr.ubx.poo.ubomb.go.decor.Tree;
 import fr.ubx.poo.ubomb.go.decor.bonus.BombNumberDec;
 import fr.ubx.poo.ubomb.go.decor.bonus.BombNumberInc;
 import fr.ubx.poo.ubomb.go.decor.bonus.BombRangeDec;
 import fr.ubx.poo.ubomb.go.decor.bonus.BombRangeInc;
-import fr.ubx.poo.ubomb.go.decor.bonus.Bonus;
 import fr.ubx.poo.ubomb.go.decor.bonus.Heart;
 import fr.ubx.poo.ubomb.go.decor.bonus.Key;
 import fr.ubx.poo.ubomb.go.decor.bonus.Princess;
-import fr.ubx.poo.ubomb.go.decor.doors.Door;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorNext;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorPrev;
 

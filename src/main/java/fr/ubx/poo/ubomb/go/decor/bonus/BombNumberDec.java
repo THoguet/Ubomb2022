@@ -2,7 +2,6 @@ package fr.ubx.poo.ubomb.go.decor.bonus;
 
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.character.Chara;
-import fr.ubx.poo.ubomb.go.character.Player;
 
 public class BombNumberDec extends Bonus {
     public BombNumberDec(Position position) {

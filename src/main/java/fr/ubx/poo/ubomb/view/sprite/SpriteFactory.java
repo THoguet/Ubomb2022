@@ -31,7 +31,7 @@ public final class SpriteFactory {
 		if (gameObject instanceof Princess)
 			return new Sprite(layer, PRINCESS.getImage(), gameObject);
 		if (gameObject instanceof Monster)
-			return new SpriteMonster(layer, (Monster) gameObject);
+			return new SpriteChara(layer, (Monster) gameObject);
 		if (gameObject instanceof BombRangeInc)
 			return new Sprite(layer, BONUS_BOMB_RANGE_INC.getImage(), gameObject);
 		if (gameObject instanceof BombRangeDec)
@@ -46,6 +46,8 @@ public final class SpriteFactory {
 			return new SpriteDoor(layer, dn);
 		if (gameObject instanceof DoorNext || gameObject instanceof DoorPrev)
 			return new SpriteDoor(layer, (Door) gameObject);
+		if (gameObject instanceof Bomb)
+			return new SpriteBomb(layer, (Bomb) gameObject);
 		throw new RuntimeException("Unsupported sprite for decor " + gameObject);
 	}
 }

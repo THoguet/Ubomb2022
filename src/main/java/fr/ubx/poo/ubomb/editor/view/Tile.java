@@ -5,13 +5,13 @@ import javafx.scene.image.ImageView;
 
 public class Tile extends ImageView {
 
-    public Tile(Image image) {
-        super(image);
-    }
+	public Tile(Image image) {
+		super(image);
+	}
 
-    public Tile(Image image, int x, int y) {
-        this(image);
-        this.setLayoutX(x);
-        this.setLayoutY(y);
-    }
+	public Tile(Image image, int x, int y) {
+		this(image);
+		this.setLayoutX(x);
+		this.setLayoutY(y);
+	}
 }

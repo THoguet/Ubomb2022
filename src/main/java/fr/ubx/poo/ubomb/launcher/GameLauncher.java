@@ -23,13 +23,12 @@ public class GameLauncher {
 
 	/**
 	 * @param string         string to decode
-	 * @param onlyThisEntity if non null, will only return a {@code MapLevel} of
+	 * @param onlyThisEntity if non-null, will only return a {@code MapLevel} of
 	 *                       {@code onlyThisEntity}
-	 * @param compression    tells if {@code string} is compressed or not
 	 * @return a {@code MapLevel} of all decoded entity of {@code string} according
 	 *         to {@code onlyThisEntity} and {@code compression}
 	 */
-	private static MapLevel stringDecode(String string, Entity onlyThisEntity, boolean compression) {
+	private static MapLevel stringDecode(String string, Entity onlyThisEntity) {
 		char EOL = 'x';
 		int firstEOL = string.indexOf(EOL);
 		String strWithoutEOL = string.replaceAll(String.valueOf(EOL), "");
@@ -80,12 +79,14 @@ public class GameLauncher {
 			Reader in = new FileReader(path);
 			Properties properties = new Properties();
 			properties.load(in);
-			boolean compression = Boolean.parseBoolean(properties.getProperty("compression", "false"));
+
 			int nbLevel = Integer.parseInt(properties.getProperty("levels", "1"));
-			String levels[] = new String[nbLevel];
+			String[] levels = new String[nbLevel];
+
 			for (int i = 1; i <= nbLevel; i++) {
 				levels[i - 1] = properties.getProperty("level" + i);
 			}
+
 			int playerLives = Integer.parseInt(properties.getProperty("playerLives", "3"));
 			int monsterVelocity = Integer.parseInt(properties.getProperty("monsterVelocity", "5"));
 			long playerInvisibilityTime = Long.parseLong(properties.getProperty("playerInvisibilityTime", "4000"));
@@ -93,6 +94,7 @@ public class GameLauncher {
 			int bombBagCapacity = Integer.parseInt(properties.getProperty("bombBagCapacity", "3"));
 			String[] parts = properties.getProperty("player").replaceAll("\\s+", "").split("x");
 			Position playerPos;
+
 			if (parts.length != 2)
 				return null;
 			try {
@@ -103,16 +105,16 @@ public class GameLauncher {
 				return null;
 			}
 			in.close();
+
 			Configuration config = new Configuration(playerPos, bombBagCapacity, playerLives, playerInvisibilityTime,
 					monsterVelocity, monsterInvisibilityTime);
-			// TODO read levelX with RLE and without
 			Grid[] grids = new Grid[nbLevel];
 			MapLevel[] monstersMap = new MapLevel[nbLevel];
 			MapLevel[] boxesMap = new MapLevel[nbLevel];
 			for (int i = 0; i < nbLevel; i++) {
-				grids[i] = new Level(stringDecode(levels[i], null, compression));
-				monstersMap[i] = stringDecode(levels[i], Entity.Monster, compression);
-				boxesMap[i] = stringDecode(levels[i], Entity.Box, compression);
+				grids[i] = new Level(stringDecode(levels[i], null));
+				monstersMap[i] = stringDecode(levels[i], Entity.Monster);
+				boxesMap[i] = stringDecode(levels[i], Entity.Box);
 			}
 			Game gameRet = new Game(config, grids);
 			NonStaticObject<Monster> monsters = gameRet.getMonsters();

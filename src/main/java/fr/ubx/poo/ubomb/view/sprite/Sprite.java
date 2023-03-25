@@ -6,6 +6,7 @@ package fr.ubx.poo.ubomb.view.sprite;
 
 import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.GameObject;
+import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -17,6 +18,7 @@ public class Sprite {
 	private final GameObject gameObject;
 	private ImageView imageView;
 	private Image image;
+	private double opacity = 1.0;
 
 	public Sprite(Pane layer, Image image, GameObject gameObject) {
 		this.layer = layer;
@@ -42,6 +44,10 @@ public class Sprite {
 		return getGameObject().getPosition();
 	}
 
+	public TranslateTransition animate(GameObject gameObj, ImageView img) {
+		return null;
+	}
+
 	public final void render() {
 		if (gameObject.isModified()) {
 			if (imageView != null) {
@@ -49,11 +55,20 @@ public class Sprite {
 			}
 			updateImage();
 			imageView = new ImageView(this.image);
-			imageView.setX((double) getPosition().x() * SIZE);
-			imageView.setY((double) getPosition().y() * SIZE);
+			imageView.setOpacity(this.opacity);
+			TranslateTransition tt = this.animate(gameObject, imageView);
+			if (tt == null) {
+				imageView.setX((double) getPosition().x() * SIZE);
+				imageView.setY((double) getPosition().y() * SIZE);
+			}
 			layer.getChildren().add(imageView);
 			gameObject.setModified(false);
 		}
+
+	}
+
+	public void setOpacity(double opacity) {
+		this.opacity = opacity;
 	}
 
 	public final void remove() {

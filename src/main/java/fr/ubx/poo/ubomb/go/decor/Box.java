@@ -16,6 +16,11 @@ public class Box extends Decor implements Movable {
 	}
 
 	@Override
+	public void explode() {
+		this.remove();
+	}
+
+	@Override
 	public void doMove(Direction direction) {
 		Position nextPos = direction.nextPosition(getPosition());
 		setPosition(nextPos);
@@ -25,10 +30,12 @@ public class Box extends Decor implements Movable {
 	public boolean canMove(Direction direction) {
 		Position nextPos = direction.nextPosition(getPosition());
 		int indexMonster = this.game.getMonsters().isThereObject(nextPos, this.game.getLevel());
+		int indexBomb = this.game.getBombs().isThereObject(nextPos, this.game.getLevel());
 		int indexBox = this.game.getBoxes().isThereObject(nextPos, this.game.getLevel());
 		Decor tmp = game.grid().get(nextPos);
 		boolean inside = game.grid().inside(nextPos);
-		return inside && indexMonster == -1 && indexBox == -1 && (tmp == null || tmp.walkableBy(this));
+		boolean nonStaticObject = indexBomb == -1 && indexMonster == -1 && indexBox == -1;
+		return inside && nonStaticObject && (tmp == null || tmp.walkableBy(this));
 	}
 
 	@Override

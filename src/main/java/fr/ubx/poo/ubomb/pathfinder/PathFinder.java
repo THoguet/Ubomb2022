@@ -10,20 +10,19 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.graph.Node;
 
 public class PathFinder {
-	private PathNode start;
-	private Position target;
-	private ConcurrentSkipListSet<PathNode> notEvaluated;
-	private HashSet<PathNode> Evaluated;
+	private final Position target;
+	private final ConcurrentSkipListSet<PathNode> notEvaluated;
+	private final HashSet<PathNode> Evaluated;
 
 	public PathFinder(Node<Position> start, Position target) {
-		this.start = new PathNode(start, null, target);
+		PathNode start1 = new PathNode(start, null, target);
 		this.target = target;
 		this.notEvaluated = new ConcurrentSkipListSet<>(
 				Comparator.comparingDouble(PathNode::getDistanceStartTarget)
 						.thenComparingDouble(PathNode::getDistanceTarget).thenComparingInt(PathNode::getX)
 						.thenComparingInt(PathNode::getY));
 		this.Evaluated = new HashSet<>();
-		this.notEvaluated.add(this.start);
+		this.notEvaluated.add(start1);
 	}
 
 	private List<Position> getPathParent(PathNode p, List<Position> ret) {
@@ -51,22 +50,22 @@ public class PathFinder {
 				return getPathParent(current, new ArrayList<>());
 
 			for (Node<Position> neighbour : current.getNeighbours()) {
-				PathNode newone = new PathNode(neighbour, current, target);
+				PathNode newOne = new PathNode(neighbour, current, target);
 				boolean isAlreadyEvaluated = false;
 				for (PathNode eva : Evaluated) {
-					if (eva.equals(newone)) {
+					if (eva.equals(newOne)) {
 						isAlreadyEvaluated = true;
 						break;
 					}
 				}
 				if (isAlreadyEvaluated)
 					continue;
-				PathNode alreadyKnow = getElementNotEvaluated(newone);
+				PathNode alreadyKnow = getElementNotEvaluated(newOne);
 				if (alreadyKnow == null) {
-					notEvaluated.add(newone);
-				} else if (alreadyKnow.getDistanceStartTarget() > newone.getDistanceStartTarget()) {
+					notEvaluated.add(newOne);
+				} else if (alreadyKnow.getDistanceStartTarget() > newOne.getDistanceStartTarget()) {
 					notEvaluated.remove(alreadyKnow);
-					notEvaluated.add(newone);
+					notEvaluated.add(newOne);
 				}
 			}
 		}

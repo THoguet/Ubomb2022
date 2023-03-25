@@ -55,17 +55,16 @@ public class GridRepoStringRLE implements GridRepo, GridRepoIO {
 		StringBuilder s = new StringBuilder();
 		int cpt = 0;
 		char last = 0;
-		char actual = 0;
+		char actual;
 		for (int j = 0; j < grid.getHeight(); j++) {
 			for (int i = 0; i < grid.getWidth(); i++) {
 				actual = grid.get(i, j).getCode();
 				if (cpt == 9 || last != actual) {
 					if (cpt != 0)
 						if (cpt < 3)
-							for (int tmp = cpt; tmp > 0; tmp--)
-								s.append(last);
+							s.append(String.valueOf(last).repeat(Math.max(0, cpt)));
 						else
-							s.append(last + String.valueOf(cpt));
+							s.append(last).append(cpt);
 					cpt = 1;
 					last = actual;
 				} else
@@ -73,11 +72,10 @@ public class GridRepoStringRLE implements GridRepo, GridRepoIO {
 			}
 			if (cpt != 0)
 				if (cpt < 3) {
-					for (int tmp = cpt; tmp > 0; tmp--)
-						s.append(last);
+					s.append(String.valueOf(last).repeat(Math.max(0, cpt)));
 					s.append(EOL);
 				} else
-					s.append(last + String.valueOf(cpt) + EOL);
+					s.append(last).append(cpt).append(EOL);
 			cpt = 0;
 			last = 0;
 		}
@@ -101,6 +99,6 @@ public class GridRepoStringRLE implements GridRepo, GridRepoIO {
 	}
 
 	@Override
-	public void export(Properties p, Writer out) throws IOException {
+	public void export(Properties p, Writer out) {
 	}
 }

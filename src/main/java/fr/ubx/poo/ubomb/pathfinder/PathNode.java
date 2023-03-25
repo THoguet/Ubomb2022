@@ -4,7 +4,7 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.graph.Node;
 
 public class PathNode extends Node<Position> {
-	private PathNode parent;
+	private final PathNode parent;
 	private double distanceStart;
 	private double distanceTarget;
 	private double distanceStartTarget;
@@ -14,17 +14,13 @@ public class PathNode extends Node<Position> {
 		this.parent = parent;
 		updateDistanceStart();
 		updateDistanceTarget(target);
-		for (Node<Position> neig : start.getNeighbours()) {
-			this.addEdge(neig);
+		for (Node<Position> neighbour : start.getNeighbours()) {
+			this.addEdge(neighbour);
 		}
 	}
 
 	private void updateDistanceStartTarget() {
 		this.distanceStartTarget = this.distanceStart + this.distanceTarget;
-	}
-
-	public double getDistanceStart() {
-		return distanceStart;
 	}
 
 	public int getX() {

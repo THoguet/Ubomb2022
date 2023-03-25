@@ -15,8 +15,6 @@ import fr.ubx.poo.ubomb.editor.model.GridView;
 import fr.ubx.poo.ubomb.engine.GameEngine;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.launcher.GameLauncher;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -25,7 +23,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.FileChooser.ExtensionFilter;
 
 public class EditorView extends BorderPane {
 	private final Stage stage;
@@ -70,7 +67,7 @@ public class EditorView extends BorderPane {
 		MenuItem loadItemF = new MenuItem("Import from file");
 		MenuItem addToProperties = new MenuItem("Add grid to properties file");
 		MenuItem setPlayerLives = new MenuItem("Set player lives");
-		MenuItem setbombBagCapacity = new MenuItem("Set bomb Bag Capacity");
+		MenuItem setBombBagCapacity = new MenuItem("Set bomb Bag Capacity");
 		MenuItem setMonsterVelo = new MenuItem("Set monster velocity");
 		MenuItem setPlayerInvin = new MenuItem("Set Player invincibility");
 		MenuItem setMonsterInvin = new MenuItem("Set Monster invincibility");
@@ -84,7 +81,7 @@ public class EditorView extends BorderPane {
 
 		exitItem.setAccelerator(KeyCombination.keyCombination("Ctrl+Q"));
 		fileMenu.getItems().addAll(newItem, new SeparatorMenuItem(), loadItemS, loadItemSZ, loadItemF,
-				new SeparatorMenuItem(), addToProperties, setPlayerLives, setbombBagCapacity, setMonsterVelo,
+				new SeparatorMenuItem(), addToProperties, setPlayerLives, setBombBagCapacity, setMonsterVelo,
 				setPlayerInvin, setMonsterInvin, setPlayerSpawn, playProp, deleteLastLevel, exportItemF,
 				new SeparatorMenuItem(), exportItemSZ, exportItemS, new SeparatorMenuItem(), exitItem);
 		menuBar.getMenus().add(fileMenu);
@@ -100,8 +97,7 @@ public class EditorView extends BorderPane {
 				int y = Integer.parseInt(parts[1]);
 				this.grid = gridRepoString.create(x, y);
 				updateGrid(grid);
-			} catch (NumberFormatException numberFormatException) {
-				return;
+			} catch (NumberFormatException ignored) {
 			}
 		});
 
@@ -129,7 +125,7 @@ public class EditorView extends BorderPane {
 			this.pro.setProperty("monsterInvisibilityTime", String.valueOf(value));
 		});
 
-		setbombBagCapacity.setOnAction(e -> {
+		setBombBagCapacity.setOnAction(e -> {
 			Form form = new Form(stage, "Bomb bad capacity:");
 			int value = Integer.parseInt(form.getText());
 			this.pro.setProperty("bombBagCapacity", String.valueOf(value));
@@ -144,8 +140,7 @@ public class EditorView extends BorderPane {
 				Integer.parseInt(parts[0]);
 				Integer.parseInt(parts[1]);
 				pro.setProperty("player", form.getText().replaceAll("\\s+", ""));
-			} catch (NumberFormatException exep) {
-				return;
+			} catch (NumberFormatException ignored) {
 			}
 		});
 
@@ -177,14 +172,12 @@ public class EditorView extends BorderPane {
 
 		playProp.setOnAction(e -> {
 			File file = new File("tmp.properties");
-			if (file != null) {
-				writeToFile(file);
-				Stage stagePlay = new Stage();
-				Game game = GameLauncher.load(file.getPath());
-				file.delete();
-				GameEngine engine = new GameEngine(game, stagePlay);
-				engine.start();
-			}
+			writeToFile(file);
+			Stage stagePlay = new Stage();
+			Game game = GameLauncher.load(file.getPath());
+			file.delete();
+			GameEngine engine = new GameEngine(game, stagePlay);
+			engine.start();
 		});
 
 		// Export to file
@@ -204,9 +197,7 @@ public class EditorView extends BorderPane {
 		});
 
 		// Export as String
-		exportItemS.setOnAction(e -> {
-			exportDialog(gridRepoString.export(grid));
-		});
+		exportItemS.setOnAction(e -> exportDialog(gridRepoString.export(grid)));
 
 		// Load from compressed String
 		loadItemSZ.setOnAction(e -> {
@@ -216,9 +207,7 @@ public class EditorView extends BorderPane {
 		});
 
 		// Export as compressed String
-		exportItemSZ.setOnAction(e -> {
-			exportDialog(gridRepoStringRLE.export(grid));
-		});
+		exportItemSZ.setOnAction(e -> exportDialog(gridRepoStringRLE.export(grid)));
 
 		// Exit
 		exitItem.setOnAction(e -> System.exit(0));

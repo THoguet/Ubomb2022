@@ -12,9 +12,9 @@ public interface Takeable {
 	default void takenBy(Player player) {
 	}
 
-	default void takenBy(Monster mosnter) {
+	default void takenBy(Monster monster) {
 	}
 
-	default void takenBy(Chara monster) {
+	default void takenBy(Chara character) {
 	}
 }

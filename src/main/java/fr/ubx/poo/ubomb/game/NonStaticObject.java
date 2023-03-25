@@ -12,25 +12,27 @@ public class NonStaticObject<T extends GameObject> {
 	private final Map<Integer, List<T>> objectsByLevel = new LinkedHashMap<>();
 
 	public int isThereObject(Position pos, int level) {
-		if (!this.objectsByLevel.containsKey(Integer.valueOf(level)))
+		if (!this.objectsByLevel.containsKey(level))
 			return -1;
-		for (int i = 0; i < this.objectsByLevel.get(Integer.valueOf(level)).size(); i++) {
-			if (this.objectsByLevel.get(Integer.valueOf(level)).get(i).getPosition().equals(pos))
+		for (int i = 0; i < this.getObjects(level).size(); i++) {
+			if (this.getObjects(level).get(i).getPosition().equals(pos))
 				return i;
 		}
 		return -1;
 	}
 
 	public void add(T m, int level) {
-		if (!this.objectsByLevel.containsKey(Integer.valueOf(level)))
-			this.objectsByLevel.put(Integer.valueOf(level), new ArrayList<>());
-		this.objectsByLevel.get(Integer.valueOf(level)).add(m);
+		if (!this.objectsByLevel.containsKey(level))
+			this.objectsByLevel.put(level, new ArrayList<>());
+		this.objectsByLevel.get(level).add(m);
 	}
 
 	public List<T> getObjects(int level) {
-		if (!this.objectsByLevel.containsKey(Integer.valueOf(level)))
-			this.objectsByLevel.put(Integer.valueOf(level), new ArrayList<>());
-		return this.objectsByLevel.get(Integer.valueOf(level));
+		if (!this.objectsByLevel.containsKey(level))
+			this.objectsByLevel.put(level, new ArrayList<>());
+		List<T> ret = this.objectsByLevel.get(level);
+		ret.removeIf(GameObject::isDeleted);
+		return ret;
 	}
 
 	public List<T> getObjects() {
@@ -38,6 +40,7 @@ public class NonStaticObject<T extends GameObject> {
 		for (Entry<Integer, List<T>> t : this.objectsByLevel.entrySet()) {
 			ret.addAll(t.getValue());
 		}
+		ret.removeIf(GameObject::isDeleted);
 		return ret;
 	}
 

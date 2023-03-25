@@ -14,6 +14,10 @@ public abstract class Door extends Decor implements Takeable {
 	}
 
 	@Override
+	public void explode() {
+	}
+
+	@Override
 	public boolean equals(Object arg0) {
 		return (arg0 instanceof Door d) && d.isOpen() == this.isOpen() && super.equals(arg0);
 	}

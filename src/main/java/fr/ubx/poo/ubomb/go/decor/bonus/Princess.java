@@ -11,7 +11,6 @@ public class Princess extends Bonus {
 
 	@Override
 	public void explode() {
-		remove();
 	}
 
 	@Override

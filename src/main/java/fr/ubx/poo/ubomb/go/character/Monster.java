@@ -6,8 +6,6 @@ import fr.ubx.poo.ubomb.engine.Timer;
 import fr.ubx.poo.ubomb.game.Direction;
 import fr.ubx.poo.ubomb.game.Game;
 import fr.ubx.poo.ubomb.game.Position;
-import fr.ubx.poo.ubomb.go.GameObject;
-import fr.ubx.poo.ubomb.go.Takeable;
 import fr.ubx.poo.ubomb.go.decor.Decor;
 import fr.ubx.poo.ubomb.go.decor.bonus.Princess;
 import fr.ubx.poo.ubomb.go.decor.doors.DoorNext;
@@ -20,9 +18,9 @@ public class Monster extends Chara {
 	private final int level;
 
 	public Monster(Game game, Position position, int level) {
-		super(game, position, 1 + level / 2, new Timer(game.configuration().monsterInvisibilityTime()));
+		super(game, position, 1 + level, new Timer(game.configuration().monsterInvisibilityTime()));
 		this.level = level;
-		this.velocityTimer = new Timer(game.configuration().monsterVelocity() * 1000 / (level + 1));
+		this.velocityTimer = new Timer(game.configuration().monsterVelocity() * 1000L / (level + 1));
 	}
 
 	@Override
@@ -60,16 +58,6 @@ public class Monster extends Chara {
 	public void requestMove(Direction direction) {
 		super.requestMove(direction);
 		this.velocityTimer.start();
-	}
-
-	@Override
-	public void doMove(Direction direction) {
-		// This method is called only if the move is possible, do not check again
-		Position nextPos = direction.nextPosition(getPosition());
-		GameObject next = game.grid().get(nextPos);
-		setPosition(nextPos);
-		if (next instanceof Takeable taken)
-			taken.takenBy((Chara) this);
 	}
 
 	public Timer getVelocityTimer() {

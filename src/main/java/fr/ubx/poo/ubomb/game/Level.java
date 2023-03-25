@@ -15,19 +15,16 @@ public class Level implements Grid {
 
 	private final int height;
 
-	private final MapLevel entities;
-
 	private final Map<Position, Decor> elements = new HashMap<>();
 
 	public Level(MapLevel entities) {
-		this.entities = entities;
-		this.width = this.entities.width();
-		this.height = this.entities.height();
+		this.width = entities.width();
+		this.height = entities.height();
 
 		for (int i = 0; i < width; i++)
 			for (int j = 0; j < height; j++) {
 				Position position = new Position(i, j);
-				Entity entity = this.entities.get(i, j);
+				Entity entity = entities.get(i, j);
 				if (entity == null)
 					continue;
 				switch (entity) {

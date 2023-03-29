@@ -38,3 +38,9 @@ javafx {
 	modules = ['javafx.controls', 'javafx.fxml']
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
+
